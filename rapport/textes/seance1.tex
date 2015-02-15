@@ -6,3 +6,8 @@
 	Un des objectifs de cette séance était d'être capable de lire les fichiers .pcd avec pointclouds. Nous nous sommes basés sur le tutoriel \url{http://pointclouds.org/documentation/tutorials/reading_pcd.php#reading-pcd} pour comprendre comment faire pour lire un fichier .pcd. Le code suivant permet de lire les données du fichier segmented\_0segment1.pcd.
 
 	\inputminted[tabsize=4,linenos,fontsize=\small]{cpp}{../tests/lecture_data/pcd_read.cpp}
+
+\subsection{Visualisation d'un fichier pcd}
+	Afin de pouvoir tester différentes fonctions de Point Cloud et d'observer leurs effets sur nos données, il nous a parru important de pouvoir visualiser correctement un fichier .pcd. Nous avons utilisé \emph{Cloud Viewer}, proposé dans le tutoriel \url{http://pointclouds.org/documentation/tutorials/cloud_viewer.php#cloud-viewer}. Il nous a simplement fallu ajouter les lignes de codes suivantes au programme permettant de lire le .pcd :
+
+	\inputminted[tabsize=4,linenos,fontsize=\small]{cpp}{code/visualisation.cpp}
