@@ -1,0 +1,4 @@
+*.pdf
+tests/*/build/*
+tests/*/*.pcd
+dataset/save_pcd
