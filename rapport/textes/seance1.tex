@@ -1,13 +1,19 @@
 \subsection{Mise en place des outils}
+	Dans le dossier donné par M. Alfredo Guerrero, il existe 3 fichiers .m (lus par Matlab/Octave) :
+	\begin{itemize}
+	\item \textit{loadpcd.m}, qui permet de charger un fichier .pcd ;
+	\item \textit{savepcd.m}, qui permet de sauvegarder les données en un fichier .pcd ;
+	\item \textit{pclviewer.m}, qui permet de visualiser des données Pointclouds, chargées au préalable avec \textit{loadpcd.m}.
+	\end{itemize} 
 
-\subsection{Test de PointClouds}
+	Nous avons eu des problèmes lorsque nous avons voulu essayer ces fonctions sous Octave.Une librairie semble manquer au logiciel, et elle n'a pas l'air d'exister. De plus, nous ne possédons pas de licences Matlab. C'est la raison pour laquelle nous allons plutôt nous concentrer sur la recherche de \textit{viewer} adéquats qui nous permettront de lire et de visualiser des fichiers .pcd directement au lancement de notre programme en C++.
 
-\subsection{Lecture d'un fichier pcd}
+\subsection{Lecture d'un fichier .pcd}
 	Un des objectifs de cette séance était d'être capable de lire les fichiers .pcd avec pointclouds. Nous nous sommes basés sur le tutoriel \url{http://pointclouds.org/documentation/tutorials/reading_pcd.php#reading-pcd} pour comprendre comment faire pour lire un fichier .pcd. Le code suivant permet de lire les données du fichier segmented\_0segment1.pcd.
 
 	\inputminted[tabsize=4,linenos,fontsize=\small]{cpp}{../tests/lecture_data/pcd_read.cpp}
 
-\subsection{Visualisation d'un fichier pcd}
-	Afin de pouvoir tester différentes fonctions de Point Cloud et d'observer leurs effets sur nos données, il nous a parru important de pouvoir visualiser correctement un fichier .pcd. Nous avons utilisé \emph{Cloud Viewer}, proposé dans le tutoriel \url{http://pointclouds.org/documentation/tutorials/cloud_viewer.php#cloud-viewer}. Il nous a simplement fallu ajouter les lignes de codes suivantes au programme permettant de lire le .pcd :
+\subsection{Visualisation d'un fichier .pcd}
+	Afin de pouvoir tester différentes fonctions de Point Cloud et d'observer leurs effets sur nos données, il nous a paru important de pouvoir visualiser correctement un fichier .pcd. Nous avons utilisé \emph{Cloud Viewer}, proposé dans le tutoriel \url{http://pointclouds.org/documentation/tutorials/cloud_viewer.php#cloud-viewer}. Il nous a simplement fallu ajouter les lignes de codes suivantes au programme permettant de lire le .pcd :
 
 	\inputminted[tabsize=4,linenos,fontsize=\small]{cpp}{code/visualisation.cpp}
