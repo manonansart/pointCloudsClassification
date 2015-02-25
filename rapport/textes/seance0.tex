@@ -1,0 +1,18 @@
+\subsection{Compte-rendu de la réunion avec les tuteurs projet, du 26/01/15}
+
+Il a été convenu avec les tuteurs pédagogiques que les réunions se tiendraient toutes les deux semaines. \\
+
+Les données que nous avons sont plusieurs imagettes (frames) de chaque classes (une dizaine d'objets). Ce sont des sortes de captures d'écran d'une vidéo à un instant donné, mais en trois dimensions. Par exemple, nous pourrions avoir 200 imagettes pour l'objet vélo, 150 imagettes pour l'objet voiture, 150 pour l'objet piéton, etc.  \\
+
+Soit$ X_{i}$ la ième imagette, on a :
+
+$  X_{i} \in \reels^{n_{i}*d} $, avec $10^{3} \leq n_{i} \leq 72.10^{3}$, et  $3 \leq d \leq 5$
+En effet, chaque imagette a ses coordonnées x, y, z au minimum, et éventuellement la profondeur et la couleur (RGB par exemple). \\ 
+
+A noter aussi que les objets sont tous déjà séparés. \\
+
+Nous avons aussi brièvement parlé de spin image, pour pouvoir avoir des images avec taille prédéfinie, et donc résoudre le problème de dimension de l'image. \\
+
+\textbf{A réaliser pour le 09/02/15 : }
+Il faut réussir à prendre en main la bibliothèque C++ PointClouds.\\
+Il faut parvenir à utiliser quelques méthodes, par exemple des méthodes de clustering. Nous allons devoir regrouper les objets par rapport à leurs labels, autrement dit organiser les données par classe. Il faut importer/exporter les fichiers en .pcd (ou .pcl), afin de pouvoir les lire sous Matlab ou via un Viewer de Pointclouds.

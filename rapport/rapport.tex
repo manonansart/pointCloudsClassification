@@ -31,6 +31,11 @@
 \setcounter{minitocdepth}{2}
 \setlength{\mtcindent}{0pt}
 
+% Maths
+\usepackage{amsmath}
+\usepackage{amssymb}
+\newcommand{\reels}{\mathbb{R}}
+
 % Images
 \usepackage{float}
 \usepackage{wrapfig}
@@ -61,7 +66,11 @@
 	\tableofcontents
 
 	\chapter{Cahier de suivi}
+		\section{Séance 0}
+		\input{textes/seance0}
 		\section{Séance 1}
 		\input{textes/seance1}
+                \section{Séance 2}
+		\input{textes/seance2}
 
 \end{document}

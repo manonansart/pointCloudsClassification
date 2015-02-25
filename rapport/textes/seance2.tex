@@ -1,0 +1,7 @@
+\subsection{Lecture et visualisation d'un fichier .pcd}
+
+\emph{Cloud Viewer} étant trop "simple" pour notre utilisation, nous nous sommes penchés sur un autre viewer. \emph{PCLVisualizer}, proposé dans le tutoriel \url{http://pointclouds.org/documentation/tutorials/pcl_visualizer.php#pcl-visualizer} nous a semblé adéquat. \\
+
+Nous avons le même problème qu'avec \emph{Cloud Viewer}, à savoir que notre nuage de points n'est toujours pas centré par rapport aux axes ; or, le zoom ne se fait que par rapport au centre des axes, donc nous ne pouvons pas voir le nuage précisément. Il faut donc que l'on réussisse à centrer nos données avant de les visualiser. En remarquant par exemple que les coordonnées x du fichier "segmented\_0segment1.pcd" ont une moyenne d'environ -8, en rajoutant 8 à toutes ces coordonnées on arrive à visualiser correctement le nuage de points (voir visualizer 2). \\
+
+A noter aussi que les méthodes proposées par \emph{PCLVisualizer}, mis à part le viewer de base \textit{simpleVis}, sont à utiliser avec des données en XYZRGB. Nous avons essayé de lire le fichier "segmented\_0segment1.pcd" en le forçant à être lu en XYZRGB et en utilisant la méthode \textit{rgbVis}, nous n'avons pas obtenu d'erreurs à la compilation mais rien n'apparaissait à l'écran. Nos données semblent être des données uniquement XYZ. \\
