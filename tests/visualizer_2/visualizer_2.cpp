@@ -41,6 +41,7 @@ boost::shared_ptr<pcl::visualization::PCLVisualizer> rgbVis (pcl::PointCloud<pcl
 int main (int argc, char** argv)
 {
   pcl::PointCloud<pcl::PointXYZ>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZ>);
+  float moyX=0, moyY=0, moyZ=0;
 
   if (pcl::io::loadPCDFile<pcl::PointXYZ> ("segmented_0segment1.pcd", *cloud) == -1) //* load the file
   {
@@ -53,14 +54,31 @@ int main (int argc, char** argv)
             << std::endl;
   for (size_t i = 0; i < cloud->points.size (); ++i)
   {
-    cloud->points[i].x=(cloud->points[i].x)+8;
+   // cloud->points[i].x=(cloud->points[i].x)+8;
+    moyX=moyX+cloud->points[i].x;
+    moyY=moyY+cloud->points[i].y;
+    moyZ=moyZ+cloud->points[i].z;
+  }
+  moyX=moyX/((float)cloud->width * cloud->height);
+  moyY=moyY/((float)cloud->width * cloud->height);
+  moyZ=moyZ/((float)cloud->width * cloud->height);
+  std::cout   << "       " << cloud->width * cloud->height
+              << "       " << moyX
+              << "       " << moyY
+              << "       " << moyZ 
+              << "       " << std::endl;
+
+for (size_t i = 0; i < cloud->points.size (); ++i)
+  {
+    cloud->points[i].x=cloud->points[i].x-moyX;
+    cloud->points[i].y=cloud->points[i].y-moyY;
+    cloud->points[i].z=cloud->points[i].z-moyZ;
     std::cout << "    " << cloud->points[i].x
               << " "    << cloud->points[i].y
               << " "    << cloud->points[i].z << std::endl;
   }
 
   boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer;
- 
   viewer = simpleVis(cloud);
   
   //--------------------
