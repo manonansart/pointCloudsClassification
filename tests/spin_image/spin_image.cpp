@@ -48,7 +48,7 @@
 
 int main (int, char** argv)
 {
-	std::string filename = argv[1];
+	std::string filename = argv[1]; // par exemple ../../../dataset/save_pcd/segmentsegment1.pcd
 	std::cout << "Reading " << filename << std::endl;
 	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZ>);
 
@@ -72,7 +72,7 @@ int main (int, char** argv)
 	normal_estimation.compute (*normals);
 
 	// Setup spin image computation
-	pcl::SpinImageEstimation<pcl::PointXYZ, pcl::Normal, pcl::Histogram<153> > spin_image_descriptor(8, 0.5, 16);
+	pcl::SpinImageEstimation<pcl::PointXYZ, pcl::Normal, pcl::Histogram<153> > spin_image_descriptor(8, 0.5, 0); //spin_image_descriptor(unsigned int image_width, double support_angle_cos, unsigned int min_pts_neighb)  -> il faut donc changer le min_pts_neighb pour faire tourner le programme avec nos fichiers ayant peu de points
 	spin_image_descriptor.setInputCloud (cloud);
 	spin_image_descriptor.setInputNormals (normals);
 
