@@ -1,0 +1,16 @@
+\subsection{Compte-rendu de la réunion du lundi 9 mars}
+
+\subsubsection{travail sur les spin images}
+
+La spin image est l’image prise en un point, perpendiculaire à la normale en ce point (donc selon le plan tangent)
+il faut qu’on prenne les meilleures spin imagse pour chaque nuage de point car c’est sur ces images 2D que nous allons réaliser la classification. Il est compliqué de trouver la meilleure spin image. Dans un premier temps il faut trouver les meilleures spin images sur le vélo manuellement. Dans un second temps on pourra l’automatiser en se servant de la bounding box. Attention cependant, si l’objet est tourné par rapport aux axes (n’est pas parallèle aux axes) la bounding box sera faussée. Il faut alors se servir du centre selon les différents axes mais ces calculs sont compliqués.
+La classe SpinImage de PCL peut nous être utile, il faudra notamment se servir des fonctions setRotation et setInitialQqch
+
+\subsubsection{ Classification}
+
+Il faut découvrir les différentes fonctionnalités de PCL pour faire de la classification. A priori il n’y a que des fonctions de clusterings, donc non-supervisé. On peut utiliser ses fonctions dans un premier temps, si on veut modifier le code pour l’adapter et faire du supervisé il faudra télécharger le code source de PCL, le modifier et le compiler.
+
+\subsubsection{ROS}
+
+ROS sert à traiter les .tm, qui sont des vidéos en 3D, pour en extraire les .pcd. C’est un système d’exploitation, il faut le lancer avec roscore \& puis executer le c++. Vu qu’il y a des erreurs dans la compilation du C++, probablement liées à ROS, le prof va nous donner l’executable ou directement les zip contenant les pcd, de toute façon on peut commencer par travailler sur le vélo (nous possédons pour l’instant une séquence de nuage de points correspondant aux images 3D d’une vidéo d’un seul vélo en 3D).
+
