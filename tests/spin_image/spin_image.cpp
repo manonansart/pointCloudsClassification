@@ -61,15 +61,15 @@ int main (int, char** argv)
 	std::cout << "Loaded " << cloud->points.size () << " points." << std::endl;
 
 	// Compute the normals
-	pcl::NormalEstimation<pcl::PointXYZ, pcl::Normal> normal_estimation;
-	normal_estimation.setInputCloud (cloud);
+	pcl::NormalEstimation<pcl::PointXYZ, pcl::Normal> normal_estimation; // Création de la classe d'estimation de la normale
+	normal_estimation.setInputCloud (cloud); // Donne le cloud comme entrée
 
-	pcl::search::KdTree<pcl::PointXYZ>::Ptr kdtree (new pcl::search::KdTree<pcl::PointXYZ>);
-	normal_estimation.setSearchMethod (kdtree);
+	pcl::search::KdTree<pcl::PointXYZ>::Ptr kdtree (new pcl::search::KdTree<pcl::PointXYZ>); // Création d'un kdtree vide
+	normal_estimation.setSearchMethod (kdtree); // Donne le kdtree qui sera ensuite rempli
 
-	pcl::PointCloud<pcl::Normal>::Ptr normals (new pcl::PointCloud< pcl::Normal>);
-	normal_estimation.setRadiusSearch (0.03);
-	normal_estimation.compute (*normals);
+	pcl::PointCloud<pcl::Normal>::Ptr normals (new pcl::PointCloud< pcl::Normal>); // Création du cloud de sortie
+	normal_estimation.setRadiusSearch (0.03); // Utilise les voisins dans un rayon de 3 cm
+	normal_estimation.compute (*normals); // Calcul des normales
 
 	// Setup spin image computation
 	pcl::SpinImageEstimation<pcl::PointXYZ, pcl::Normal, pcl::Histogram<153> > spin_image_descriptor(8, 0.5, 0); //spin_image_descriptor(unsigned int image_width, double support_angle_cos, unsigned int min_pts_neighb)  -> il faut donc changer le min_pts_neighb pour faire tourner le programme avec nos fichiers ayant peu de points
