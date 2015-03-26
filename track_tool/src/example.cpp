@@ -1,9 +1,33 @@
 
 #include <track_tools/track_manager.h>
 #include <iomanip>
-
+#include <sstream>
+#include <string>
+#include <iostream>
+#include <pcl/io/pcd_io.h>
+#include <pcl/point_types.h>
 
 using namespace std;
+
+// -------------------------------------------
+// Convenient typedefs
+// -------------------------------------------
+typedef pcl::PointXYZI PointT;
+typedef pcl::PointXYZRGBL PointRGBL;
+typedef pcl::PointXYZRGB PointRGBT;
+typedef pcl::PointCloud<PointT> PointCloud;
+typedef pcl::PointCloud<PointRGBL> PointCloudRGBL;
+typedef pcl::PointCloud<PointRGBT> PointCloudRGB;
+typedef pcl::PointNormal PointNormalT;
+typedef pcl::PointCloud<PointNormalT> PointCloudWithNormals;
+// -------------------------------------------
+// Classif typedefs
+// -------------------------------------------
+typedef pcl::PointXYZI PointTypeIO;
+typedef pcl::PointXYZINormal PointTypeFull;
+typedef pcl::PointCloud<PointTypeFull> PointCloudTypeFull;
+
+void save_pcl2pcd(int file_velo, int track, pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_ptr);
 
 void pubText(string texto, TrackManager tm)
 {
@@ -14,7 +38,7 @@ marker.text=texto;
 marker.id=1;
 marker.ns="Texto";
 marker.header.frame_id="world";
-marker.header.stamp=ros::Time::now();
+//marker.header.stamp=ros::Time::now();
 marker.pose.position.x=pose.x;
 marker.pose.position.y=pose.y;
 marker.pose.position.z=pose.z-10;
@@ -41,15 +65,17 @@ int main(int argc, char** argv)
   int tracks=0;
   int segments=0;
   string label;
+  pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_ptr(new pcl::PointCloud<pcl::PointXYZ>);
+
   /// Activate this code when using two pcs
-  if(ros_.master_check())
-  {
-    pub_ = (ros_.NodeHandle())->advertise<sensor_msgs::PointCloud>("track", 2);
-    pub_text_ = (ros_.NodeHandle())->advertise<visualization_msgs::Marker>("Text", 2);
-    cout<<"ROS publisher on \n";
-  }
-  else
-    cout<<"ROS master not checked \n";
+  //if(ros_.master_check())
+ // {
+   // pub_ = (ros_.NodeHandle())->advertise<sensor_msgs::PointCloud>("track", 2);
+   // pub_text_ = (ros_.NodeHandle())->advertise<visualization_msgs::Marker>("Text", 2);
+   // cout<<"ROS publisher on \n";
+  //}
+  //else
+  //  cout<<"ROS master not checked \n";
 
   if(argc != 2) {
     cout << "Usage: example TRACK_MANAGER" << endl;
@@ -70,7 +96,7 @@ int main(int argc, char** argv)
     cout << "Track " << i << " has " << segments << " segments." << endl;
     sensor_msgs::PointCloud& cloud_global = *tm.tracks_[i]->segments_[0]->cloud_;
     geometry_msgs::Point32 punto;
-
+    pcl::PointXYZ puntot;
     pose_t& pose = tm.tracks_[i]->segments_[i]->robot_pose_;
     cout << "The robot was at " << pose.x << " " << pose.y << " " << pose.z << ", "
          << pose.roll << " " << pose.pitch << " " << pose.yaw << endl;
@@ -86,17 +112,27 @@ int main(int argc, char** argv)
       punto.y=cloud.points.at(k).y-pose.y;
       punto.z=cloud.points.at(k).z-pose.z;
       cloud_global.points.push_back(punto);
+
+      puntot.x=cloud.points.at(k).x-pose.x;
+      puntot.y=cloud.points.at(k).y-pose.y;
+      puntot.z=cloud.points.at(k).z-pose.z;
+      //puntot.intensity=cloud.points.at(k).intensity;
+      cloud_ptr->points.push_back(puntot);
       }
       cout << "Segment "<<j<<" of "<<segments <<" of the track "<<i <<" / "<<tracks<<" has " << cloud.points.size() << " points. Type: "<<label<< endl;
       //cout << "Last point : " <<punto<<endl;
-      pubCloud(cloud_global);
-      if (cloud_global.points.size()>0)
-        cloud_global.points.clear();
+      //pubCloud(cloud_global);
+      //if (cloud_global.points.size()>0)
+      //  cloud_global.points.clear();
       char str[50];
       int numTrack=i;
       int numseg=j;
       sprintf(str,"Track No. %d of %d \nSegment: %d of %d",numTrack,tracks,numseg,segments);
-      pubText(str,tm);
+      //pubText(str,tm);
+      // save data to PCD files
+      save_pcl2pcd(j, i, cloud_ptr);
+      if (cloud_ptr->size()>0)
+           cloud_ptr->clear();
     }
     sensor_msgs::PointCloud& cloud = *tm.tracks_[i]->segments_[0]->cloud_;
     cout << "The first segment of the track "<<i <<" has " << cloud.points.size() << " points." << endl;
@@ -129,6 +165,48 @@ int main(int argc, char** argv)
   }
   
   return 0;
+}
+
+//==============================================================================
+// Save point clouds to file
+//==============================================================================
+void save_pcl2pcd(int file_velo, int track, pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_ptr)
+{
+  /// Store point cloud into PCD file for post processing
+  std::string file_name_all;
+  std::string file_prefix, file_track;
+  /// Data saving for gound obstacle
+  file_prefix = "segment_";
+  file_track = "track_";
+
+
+  std::string file_suffix = ".pcd";
+  std::stringstream file_velo_str, file_track_str;
+
+  if (file_velo<10) file_velo_str << "00"<<file_velo;
+  if (file_velo<100 && file_velo>9) file_velo_str << "0"<<file_velo;
+  if (file_velo>99) file_velo_str <<file_velo;
+  if (track<10) file_track_str << "00"<<track;
+  if (track<100 && track>9) file_track_str << "0"<<track;
+  if (track>99) file_track_str <<track;
+
+  file_name_all = file_prefix + file_velo_str.str() + file_track +file_track_str.str()+ file_suffix;
+
+  cloud_ptr->height=cloud_ptr->size();
+  cloud_ptr->width=1;
+  /// Write point cloud data in the sensor frame
+  //cout<<cloud_ptr->height<<", "<<cloud_ptr->width<<": "<<cloud_ptr->size()<<endl;
+  if (cloud_ptr->size()!=0)
+  {
+    pcl::PCDWriter writer1;
+    string header1=writer1.generateHeader(*cloud_ptr);
+    writer1.write(file_name_all,*cloud_ptr);
+    //fpcl<<setprecision(12)<<file_velo<< " " << date<<endl;
+    //std::cerr << "Saved " << basic_cloud_ptr->size() << " data points to pcd �file." << std::endl;
+  }
+
+  /// Increase counter for dataset creation
+  //file_velo++;
 }
 
     

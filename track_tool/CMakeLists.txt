@@ -28,7 +28,7 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 find_package(catkin REQUIRED COMPONENTS roscpp pcl_ros rviz)
 
 include_directories(include ${catkin_INCLUDE_DIRS})
-set(ROSTools_LIBRARIES "ros_tools")
+#set(ROSTools_LIBRARIES "ros_tools")
 
 # PCL Library
 find_package(PCL 1.7 REQUIRED)

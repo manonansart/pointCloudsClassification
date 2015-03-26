@@ -284,9 +284,9 @@ void pubCloud(const sensor_msgs::PointCloud& cloud)
 //  punto.y=0;
 //  punto.z=0;
 //  dsm_msg.data.push_back(punto);
-  dsm_msg.header.stamp=ros::Time::now();
+  //dsm_msg.header.stamp=ros::Time::now();
   dsm_msg.header.frame_id="world";
-  pub_.publish(dsm_msg);
+  //pub_.publish(dsm_msg);
   usleep(50000);
 }
 

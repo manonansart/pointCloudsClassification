@@ -23,7 +23,7 @@
 #include <pcl/ros/conversions.h>
 #include <sensor_msgs/PointCloud2.h>
 #include <visualization_msgs/Marker.h>
-#include "rostools.h"
+//#include "rostools.h"
 #include "ros/ros.h"
 //#include <pcl_ros/point_cloud.h>
 
@@ -80,7 +80,7 @@ public:
 };
 
 // -- Helper functions for saving and loading.
-ROSBinding::ROSTools ros_;
+//ROSBinding::ROSTools ros_;
 ros::Publisher pub_;
 ros::Publisher pub_text_;
 void pubCloud(const sensor_msgs::PointCloud& cloud);
