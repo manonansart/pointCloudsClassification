@@ -8,7 +8,17 @@ main (int argc, char** argv)
 {
   pcl::PointCloud<pcl::PointXYZ>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZ>);
 
-  if (pcl::io::loadPCDFile<pcl::PointXYZ> ("segmented_0segment1.pcd", *cloud) == -1) //* load the file
+  std::string numSegment, numImage;
+
+  std::cout << "Entrez un numéro de segment : " << std::endl;
+  cin >> numSegment;
+
+  std::cout << "Entrez un numéro d'image au sein du segment : " << std::endl;
+  cin >> numImage;
+
+  std::string chemin = "../../../dataset/save_pcd/segmented_" + numSegment + "segment" + numImage + ".pcd";
+
+  if (pcl::io::loadPCDFile<pcl::PointXYZ> (chemin, *cloud) == -1) //* load the file
   {
     PCL_ERROR ("Couldn't read the file  \n");
     return (-1);
@@ -21,6 +31,8 @@ main (int argc, char** argv)
     std::cout << "    " << cloud->points[i].x
               << " "    << cloud->points[i].y
               << " "    << cloud->points[i].z << std::endl;
+
+  std::cout << "Tapez h pour connaitre les options." << std::endl;
 
   pcl::visualization::CloudViewer viewer ("Simple Cloud Viewer");
   viewer.showCloud (cloud);
