@@ -13,7 +13,10 @@ using namespace std;
 // Convenient typedefs
 // -------------------------------------------
 typedef pcl::PointXYZI PointT;
+typedef pcl::PointXYZL PointL;
+
 typedef pcl::PointXYZRGBL PointRGBL;
+
 typedef pcl::PointXYZRGB PointRGBT;
 typedef pcl::PointCloud<PointT> PointCloud;
 typedef pcl::PointCloud<PointRGBL> PointCloudRGBL;
@@ -27,7 +30,7 @@ typedef pcl::PointXYZI PointTypeIO;
 typedef pcl::PointXYZINormal PointTypeFull;
 typedef pcl::PointCloud<PointTypeFull> PointCloudTypeFull;
 
-void save_pcl2pcd(int file_velo, int track, pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_ptr);
+void save_pcl2pcd(int file_velo, int track, pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr);
 
 void pubText(string texto, TrackManager tm)
 {
@@ -65,7 +68,7 @@ int main(int argc, char** argv)
   int tracks=0;
   int segments=0;
   string label;
-  pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_ptr(new pcl::PointCloud<pcl::PointXYZ>);
+  pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(new pcl::PointCloud<pcl::PointXYZI>);
 
   /// Activate this code when using two pcs
   //if(ros_.master_check())
@@ -83,6 +86,7 @@ int main(int argc, char** argv)
     return 1;
   }
 
+  cout << "Loading might take few minutes..."<<endl;
   TrackManager tm(argv[1]);
   tracks=tm.tracks_.size();
   cout << "Loaded " << tracks << " tracks." << endl;
@@ -96,7 +100,7 @@ int main(int argc, char** argv)
     cout << "Track " << i << " has " << segments << " segments." << endl;
     sensor_msgs::PointCloud& cloud_global = *tm.tracks_[i]->segments_[0]->cloud_;
     geometry_msgs::Point32 punto;
-    pcl::PointXYZ puntot;
+    pcl::PointXYZI puntot;
     pose_t& pose = tm.tracks_[i]->segments_[i]->robot_pose_;
     cout << "The robot was at " << pose.x << " " << pose.y << " " << pose.z << ", "
          << pose.roll << " " << pose.pitch << " " << pose.yaw << endl;
@@ -116,10 +120,12 @@ int main(int argc, char** argv)
       puntot.x=cloud.points.at(k).x-pose.x;
       puntot.y=cloud.points.at(k).y-pose.y;
       puntot.z=cloud.points.at(k).z-pose.z;
-      //puntot.intensity=cloud.points.at(k).intensity;
+      puntot.intensity=cloud.channels.at(0).values[k];//  .points.at(k).intensity;
       cloud_ptr->points.push_back(puntot);
+      //printf("%d  ",cloud.channels.size());
+      //cout<<cloud.channels.at(0).values[k]<<endl;
       }
-      cout << "Segment "<<j<<" of "<<segments <<" of the track "<<i <<" / "<<tracks<<" has " << cloud.points.size() << " points. Type: "<<label<< endl;
+      cout << "Segment "<<j<<" of "<<segments <<" of the track "<<i <<" / "<<tracks<<" has " << cloud.points.size() << " points. Type: "<<label<<"...   "<<cloud.points.at(0) << endl;
       //cout << "Last point : " <<punto<<endl;
       //pubCloud(cloud_global);
       //if (cloud_global.points.size()>0)
@@ -170,7 +176,7 @@ int main(int argc, char** argv)
 //==============================================================================
 // Save point clouds to file
 //==============================================================================
-void save_pcl2pcd(int file_velo, int track, pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_ptr)
+void save_pcl2pcd(int file_velo, int track, pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr)
 {
   /// Store point cloud into PCD file for post processing
   std::string file_name_all;
