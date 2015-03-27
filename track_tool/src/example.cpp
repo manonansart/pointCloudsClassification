@@ -30,7 +30,9 @@ typedef pcl::PointXYZI PointTypeIO;
 typedef pcl::PointXYZINormal PointTypeFull;
 typedef pcl::PointCloud<PointTypeFull> PointCloudTypeFull;
 
-void save_pcl2pcd(int file_velo, int track, pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr);
+void save_pcl2pcd(int file_velo, int track, pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr, string label);
+
+std::ofstream file_labels;
 
 void pubText(string texto, TrackManager tm)
 {
@@ -69,6 +71,8 @@ int main(int argc, char** argv)
   int segments=0;
   string label;
   pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr(new pcl::PointCloud<pcl::PointXYZI>);
+
+  file_labels.open("labels.txt",std::ios::out);
 
   /// Activate this code when using two pcs
   //if(ros_.master_check())
@@ -136,7 +140,7 @@ int main(int argc, char** argv)
       sprintf(str,"Track No. %d of %d \nSegment: %d of %d",numTrack,tracks,numseg,segments);
       //pubText(str,tm);
       // save data to PCD files
-      save_pcl2pcd(j, i, cloud_ptr);
+      save_pcl2pcd(j, i, cloud_ptr, label);
       if (cloud_ptr->size()>0)
            cloud_ptr->clear();
     }
@@ -176,7 +180,7 @@ int main(int argc, char** argv)
 //==============================================================================
 // Save point clouds to file
 //==============================================================================
-void save_pcl2pcd(int file_velo, int track, pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr)
+void save_pcl2pcd(int file_velo, int track, pcl::PointCloud<pcl::PointXYZI>::Ptr cloud_ptr, string label)
 {
   /// Store point cloud into PCD file for post processing
   std::string file_name_all;
@@ -196,7 +200,7 @@ void save_pcl2pcd(int file_velo, int track, pcl::PointCloud<pcl::PointXYZI>::Ptr
   if (track<100 && track>9) file_track_str << "0"<<track;
   if (track>99) file_track_str <<track;
 
-  file_name_all = file_prefix + file_velo_str.str() + file_track +file_track_str.str()+ file_suffix;
+  file_name_all = file_track +file_track_str.str()+ file_prefix + file_velo_str.str() +  file_suffix;
 
   cloud_ptr->height=cloud_ptr->size();
   cloud_ptr->width=1;
@@ -207,6 +211,7 @@ void save_pcl2pcd(int file_velo, int track, pcl::PointCloud<pcl::PointXYZI>::Ptr
     pcl::PCDWriter writer1;
     string header1=writer1.generateHeader(*cloud_ptr);
     writer1.write(file_name_all,*cloud_ptr);
+    file_labels<<std::setprecision(20)<<track<< " " << file_velo<< " "<<label<<std::endl;
     //fpcl<<setprecision(12)<<file_velo<< " " << date<<endl;
     //std::cerr << "Saved " << basic_cloud_ptr->size() << " data points to pcd �file." << std::endl;
   }
