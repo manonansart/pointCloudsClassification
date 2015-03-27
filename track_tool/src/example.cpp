@@ -148,7 +148,7 @@ int main(int argc, char** argv)
     cout << "The first segment of the track "<<i <<" has " << cloud.points.size() << " points." << endl;
     cout << "Last point : " <<punto<<endl;
     //pubCloud(cloud);
-
+    file_labels<<std::setprecision(20)<<i<< " " <<label<<std::endl;
   }
   cout << endl;
 
@@ -211,7 +211,7 @@ void save_pcl2pcd(int file_velo, int track, pcl::PointCloud<pcl::PointXYZI>::Ptr
     pcl::PCDWriter writer1;
     string header1=writer1.generateHeader(*cloud_ptr);
     writer1.write(file_name_all,*cloud_ptr);
-    file_labels<<std::setprecision(20)<<track<< " " << file_velo<< " "<<label<<std::endl;
+    //file_labels<<std::setprecision(20)<<track<< " " << file_velo<< " "<<label<<std::endl;
     //fpcl<<setprecision(12)<<file_velo<< " " << date<<endl;
     //std::cerr << "Saved " << basic_cloud_ptr->size() << " data points to pcd �file." << std::endl;
   }
