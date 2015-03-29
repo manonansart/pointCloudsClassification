@@ -1,4 +1,5 @@
 *.pdf
+*.pcd
 tests/*/build/*
 dataset/save_pcd
 track_tool/bin/*
