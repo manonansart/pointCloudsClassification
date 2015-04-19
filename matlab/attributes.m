@@ -7,14 +7,14 @@ function att = attributes(fpath)
 	files = dir(strcat(fpath, '*.pcd'));
 	for file = files'
 	    data = loadpcd(strcat(fpath, file.name));
-
+		data = rotate(data);
 	    intensity = data(4, :)';
 
 	    S = cov(data(1:3, :)');
 	    vp = eig(S);
 	    vpXData = vp(1);
-	    vpYData = vp(2);
-	    vpZData = vp(3);
+	    vpYData = vp(1) - vp(2);
+	    vpZData = vp(2) - vp(3);
 	    bBoxX = max(data(:, 1)) - min(data(:, 1));
 	    bBoxY = max(data(:, 2)) - min(data(:, 2));
 	    bBoxZ = max(data(:, 3)) - min(data(:, 3));
