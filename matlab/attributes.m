@@ -15,9 +15,12 @@ function att = attributes(fpath)
 	    vpXData = vp(1);
 	    vpYData = vp(2);
 	    vpZData = vp(3);
+	    bBoxX = max(data(:, 1)) - min(data(:, 1));
+	    bBoxY = max(data(:, 2)) - min(data(:, 2));
+	    bBoxZ = max(data(:, 3)) - min(data(:, 3));
 
 		att = [att ;
-			min(intensity) max(intensity) mean(intensity) var(intensity) vpXData vpYData vpZData];
+			min(intensity) max(intensity) mean(intensity) var(intensity) vpXData vpYData vpZData bBoxX bBoxY bBoxZ];
 	end
 
 	% Save the attributes to csv format
