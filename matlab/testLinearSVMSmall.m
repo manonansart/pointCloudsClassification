@@ -3,7 +3,10 @@ clear all
 clc
 
 % Note: don't forget to add splitdata, monqp and svmkernel to the path.
-% Results: error rate 1.4901%, bestC 20.0070 and runtime 28.257857s
+% Results: error rate 1%, bestC 4.8 and runtime 30s -> without rotation
+% Results: error rate 4%, bestC 9 and runtime 30s -> with rotation
+% Resultats can change a lot depanding on the split because the svm is performed on a small dataset
+% C varies between 4 and 50, the error rates stays around 1-1.5 and runtime is constant
 
 
 %%  Load the data and replace text labels
