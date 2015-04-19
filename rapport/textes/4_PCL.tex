@@ -1,0 +1,23 @@
+PCL, ou Point Cloud Library, est une librairie C++ open source utilisée pour les traitements d'images 2D/3D et de nuages de points.\\
+
+\section{Pourquoi utiliser PCL?}
+
+M. Alfredo Guerrero nous a laissé le choix dans l'outil à utiliser pour réaliser notre classification, à savoir Matlab et PCL. Cependant, Matlab n'est pas spécialisé dans le traitement de nuages de points et il est difficile de visualiser nos données au format pcd. De plus, PCL semblait être adéquat pour manipuler des nuages de points, avec certains fonctions déjà implémentées. Ce sont les raisons pour lesquelles nous avons choisi PCL pour démarrer notre projet, avant de nous rétracter.\\
+
+\section{Formation sur PCL}
+
+	Nous nous sommes donc formés sur PCL. La première chose à faire était de visualiser nos données ; nous avons pour cela utilisé \emph{PCLVisualizer}, proposé dans le tutoriel \url{http://pointclouds.org/documentation/tutorials/pcl_visualizer.php#pcl-visualizer}. Toutefois, nous avons dû centrer nos données manuellement par rapport aux axes afin d'obtenir une visualisation correcte.\\
+
+	Dans le dossier essai\_segmentation, nous avons testé une méthode de segmentation plane afin de mieux appréhender la librairie PointClouds.\\
+	Des points sont d'abord générés de façon à former un plan, et d'autres sont volontairement placés à l'écart. Le programme cherche ensuite les points qui forment un plan, et calcule ses paramètres.\\
+
+	De même, dans le dossier essai\_segmentation\_2, nous avons testé une méthode de segmentation par croissance de régions. A noter cependant que cela ne fonctionne pas avec nos fichiers .pcd (core dump), nous avons dû utiliser le fichiers .pcd donné dans le tutoriel associé.\\
+
+\section{Abandon de PCL}
+
+	Nous avons finalement abandonné PCL au profit de Matlab. En effet, nous avons essayé d'extraire des spin images depuis nos données, en utilisant la classe SpinImage de PCL ; mais les méthodes implémentées ne permettent pas de calculer des spin images sur des nuages dont le nombre de points est faible, comme les nôtres.\\
+
+	De plus, il n'y a que des fonctions de clusterings, c'est-à-dire de l'apprentissage non-supervisé, qui soient déjà implémenté dans PCL, au contraire de Matlab.\\
+
+	Finalement, PCL aurait pu nous servir pour extraire des caractéristiques de nos nuages de points, mais nous nous sommes rendus compte que cette librairie permettait surtout d'effectuer du traitement sur des images 3D ayant des milliers de points et en XYZRGB.\\
+
