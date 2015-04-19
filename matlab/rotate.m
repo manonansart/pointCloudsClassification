@@ -10,5 +10,9 @@ function newData = rotate(data)
 
 	newData = data;
 	newCoordinates = R * data(:, 1:3)';
+	newCoordinates(:, 1) = newCoordinates(:, 1) - (min(newCoordinates(:, 1)) + max(newCoordinates(:, 1)))/2;
+	newCoordinates(:, 2) = newCoordinates(:, 2) - (min(newCoordinates(:, 2)) + max(newCoordinates(:, 2)))/2;
+	newCoordinates(:, 3) = newCoordinates(:, 3) - (min(newCoordinates(:, 3)) + max(newCoordinates(:, 3)))/2;
+
 	newData(:, 1:3) = newCoordinates';
 end
