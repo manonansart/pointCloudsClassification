@@ -6,7 +6,7 @@ data = load('../dataset/dish_area_dataset/attributes.csv');
 % Replaces the label background with 1 and the label car with 2
 labelsNum = strcmp(labels, 'background') + 2 * strcmp(labels, 'car');
 
-[X, Y, tmp, tmp] = splitdata(data, labelsNum, 0.04);
+[X, Y, tmp, tmp] = splitdata(data, labelsNum, 0.08);
 
 csvwrite('../dataset/dish_area_dataset/attributesSmall.csv', X);
 csvwrite('../dataset/dish_area_dataset/labelsSmall.csv', Y);
