@@ -1,0 +1,11 @@
+\section{Description des classifieurs utilisés}
+
+Nous avons utilisé les SVM (Support Vector Machines) pour réaliser notre classification en apprentissage supervisé. Ils sont souvent utilisés pour résoudre des problèmes de discrimination, c'est-à-dire à quelle classe appartient un échantillon, et c'est exactement le problème auquel nous sommes confrontés. Afin de comparer plusieurs classes, nous avons utilisé deux méthodes :\\
+
+\begin{itemize}
+\item La méthode \emph{one-versus-all} consiste à construire M classifieurs binaires en attribuant le label 1 aux échantillons de l'une des classes et le label -1 à toutes les autres. En phase de test, le classifieur donnant la marge la plus élevée remporte le vote.
+\item La méthode \emph{one-versus-one} consiste à construire M(M-1)/2 classifieurs binaires en confrontant chacune des M classes. En phase de test, l'échantillon à classer est analysé par chaque classifieur et un vote majoritaire permet de déterminer sa classe.\\
+\end{itemize}
+
+
+\section{Résultats obtenus}
