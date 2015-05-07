@@ -119,3 +119,8 @@ ypred(find(ypred < 0)) = -1;
 erreur = (length(find(ypred - Ytest > 0.0001)) / nTest) * 100
 bestCMoins1  
 bestC1
+
+disp(strcat('Prediction: background | Truth : background : ', num2str(sum((ypred == -1) .* (Ytest == -1)))))
+disp(strcat('Prediction: background | Truth : car : ', num2str(sum((ypred == -1) .* (Ytest == 1)))))
+disp(strcat('Prediction: car | Truth : car : ', num2str(sum((ypred == 1) .* (Ytest == 1)))))
+disp(strcat('Prediction: car | Truth : background : ', num2str(sum((ypred == 1) .* (Ytest == -1)))))

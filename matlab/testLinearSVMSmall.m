@@ -83,3 +83,14 @@ toc
 
 bestC
 erreur = (sum((Xtest * w + b) .* Ytest < 0) / nTest) * 100
+
+% Calculate new labels
+pred = Xtest * w + b;
+pred(find(pred > 0)) = 1;
+pred(find(pred < 0)) = -1;
+
+% Matrice de confusion
+disp(strcat('Prediction: background | Truth : background : ', num2str(sum((pred == -1) .* (Ytest == -1)))))
+disp(strcat('Prediction: background | Truth : car : ', num2str(sum((pred == -1) .* (Ytest == 1)))))
+disp(strcat('Prediction: car | Truth : car : ', num2str(sum((pred == 1) .* (Ytest == 1)))))
+disp(strcat('Prediction: car | Truth : background : ', num2str(sum((pred == 1) .* (Ytest == -1)))))
