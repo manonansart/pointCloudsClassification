@@ -27,30 +27,30 @@ function [w, b, moyenne, variance] = svm_train_linear(X, Y)
 	bestC = 0;
 
 	for i = 1:length(C_listBig)
-		C = C_listBig(i);
+		C = construireC(Yapp, C_listBig(i));
 		[alpha, b, pos] = monqp(H, e, Yapp, 0, C, lambda, 0);    
 		w = Xapp(pos, :)' *(Yapp(pos) .* alpha);
 		nbErr = sum((Xval * w + b) .* Yval < 0);
 		if (nbErr < nbErrMin)
 			nbErrMin = nbErr;
-			bestC = C;
+			bestC = C_listBig(i);
 		end
 	end
 
 
 	% Validation for C : precise C next
-	C_listSmall = logspace(log10(0.9 * bestC), log10(1.1 * C), 50);
+	C_listSmall = logspace(log10(0.9 * bestC), log10(1.1 * bestC), 50);
 	nbErrMin = inf;
 	bestC = 0;
 
 	for i = 1:length(C_listSmall)
-		C = C_listSmall(i);
+		C = construireC(Yapp, C_listSmall(i));
 		[alpha, b, pos] = monqp(H, e, Yapp, 0, C, lambda, 0);    
 		w = Xapp(pos, :)' *(Yapp(pos) .* alpha);
 		nbErr = sum((Xval * w + b) .* Yval < 0);
 		if (nbErr < nbErrMin)
 			nbErrMin = nbErr;
-			bestC = C;
+			bestC = C_listSmall(i);
 		end
 	end
 

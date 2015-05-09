@@ -33,8 +33,13 @@ for i = 1 : 5
 			ind_i = find(Yapp == i);
 			ind_j = find(Yapp == j);
 
+			Y_tmp = Yapp;
+
+			Y_tmp(ind_i, :) = 1;
+			Y_tmp(ind_j, :) = -1;
+
 			X_ij = [Xapp(ind_i, :); Xapp(ind_j, :)];
-			Y_ij = [Yapp(ind_i, :); Yapp(ind_j, :)];
+			Y_ij = [Y_tmp(ind_i, :); Y_tmp(ind_j, :)];
 
 			[w, b, moyenne, variance] = svm_train_linear(X_ij, Y_ij);
 			W(:, (i-1)*5 + j) = w;
@@ -64,13 +69,13 @@ end
 
 pred_by_class = [];
 for i = 1 : 5
-	pred_by_class = [pred_by_class sum((preds == i), 2)]
+	pred_by_class = [pred_by_class sum((preds == i), 2)];
 end
 
 [val, pred_final] = max(pred_by_class');
 pred_final = pred_final';
 
-erreur = sum(pred_final ~= Ytest) / nTest * 100;
+erreur = sum(pred_final ~= Ytest) / nTest * 100
 
 
 disp(strcat('Prediction: background | True : ', num2str(sum((pred_final == 1) .* (Ytest == 1)))))
