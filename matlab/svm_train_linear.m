@@ -39,7 +39,7 @@ function [w, b, moyenne, variance] = svm_train_linear(X, Y)
 
 
 	% Validation for C : precise C next
-	C_listSmall = logspace(log10(0.9 * bestC), log10(1.1 * C), 50);
+	C_listSmall = logspace(log10(0.9 * bestC), log10(1.1 * bestC), 50);
 	nbErrMin = inf;
 	bestC = 0;
 
