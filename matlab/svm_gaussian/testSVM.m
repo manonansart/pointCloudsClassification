@@ -8,7 +8,7 @@ clc
 
 %%  Load the data and replace text labels
 
-data = load('../dataset/dish_area_dataset/attributes.csv');
+data = load('../../dataset/dish_area_dataset/attributes.csv');
 
 % Gets the columns from the text file
 [nb1, nb2, labels] = textread('dish_area_labels.txt', '%f %f %s');
