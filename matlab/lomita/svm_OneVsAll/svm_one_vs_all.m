@@ -20,20 +20,19 @@ Y = load('../../../dataset/lomita/labelsSmall_without_unlabeled.csv');
 
 %% 1 - Clean data (to be refactored)
 
-[n , p ] = size ( Xapp ) ;
-[nt , pt ] = size ( Xtest) ;
+[n , p] = size(Xapp);
+[nt , pt] = size(Xtest);
 
-data_app = [Xapp Yapp];
+X1 = Xapp(Yapp==1);
+Y1 = Yapp(Yapp==1);
+X2 = Xapp(Yapp==2);
+X3 = Xapp(Yapp==3);
+X4 = Xapp(Yapp==4);
 
-X1 = data_app(data_app(:,11)==1);
-X2 = data_app(data_app(:,11)==2);
-X3 = data_app(data_app(:,11)==3);
-X4 = data_app(data_app(:,11)==4);
-
-[n1 , p1 ] = size ( X1 ) ;
-[n2 , p2 ] = size ( X2 ) ;
-[n3 , p3 ] = size ( X3 ) ;
-[n4 , p4 ] = size ( X4 ) ;
+[n1, p1] = size(X1);
+[n2, p2] = size(X2);
+[n3, p3] = size(X3);
+[n4, p4] = size(X4);
 
 y1 = [ones(n1,1) -ones(n1,1) -ones(n1,1) -ones(n1,1)]; 
 y2 = [-ones(n2,1) ones(n2,1) -ones(n2,1) -ones(n2,1)];
