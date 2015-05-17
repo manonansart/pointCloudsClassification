@@ -1,17 +1,7 @@
-function [w, b, moyenne, variance] = svm_train_linear(X, Y)
-
-	[Xapp, Yapp, Xval, Yval] = splitdata(X, Y, 0.7);
+function [w, b] = svm_train_linear(Xapp, Yapp, Xval, Yval)
 
 	[nApp, p] = size(Xapp);
 	[nVal, p] = size(Xval);
-
-	moyenne = mean(Xapp);
-	variance = std(Xapp);
-
-	% Center and reduce
-	Xapp = (Xapp - ones(nApp, 1) * moyenne) ./ (ones(nApp, 1) * variance); 
-	Xval = (Xval - ones(nVal, 1) * moyenne) ./ (ones(nVal, 1) * variance);
-		
 
 	DY = diag(Yapp);
 	G = Xapp * Xapp';
@@ -27,7 +17,7 @@ function [w, b, moyenne, variance] = svm_train_linear(X, Y)
 	bestC = 0;
 
 	for i = 1:length(C_listBig)
-		C = construireC(Yapp, C_listBig(i));
+		C = C_listBig(i);
 		[alpha, b, pos] = monqp(H, e, Yapp, 0, C, lambda, 0);    
 		w = Xapp(pos, :)' *(Yapp(pos) .* alpha);
 		nbErr = sum((Xval * w + b) .* Yval < 0);
@@ -44,7 +34,7 @@ function [w, b, moyenne, variance] = svm_train_linear(X, Y)
 	bestC = 0;
 
 	for i = 1:length(C_listSmall)
-		C = construireC(Yapp, C_listSmall(i));
+		C = C_listSmall(i);
 		[alpha, b, pos] = monqp(H, e, Yapp, 0, C, lambda, 0);    
 		w = Xapp(pos, :)' *(Yapp(pos) .* alpha);
 		nbErr = sum((Xval * w + b) .* Yval < 0);

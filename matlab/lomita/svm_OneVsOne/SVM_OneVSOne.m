@@ -11,37 +11,65 @@ clc
 
 %%  Load the data and replace text labels
 
-data = load('../../../dataset/lomita/attributesSmall.csv');
+data = load('../../../dataset/lomita/attributesSmall_without_unlabeled.csv');
 
-% Gets the columns from the text file
-Y = load('../../../dataset/lomita/labelsSmall.csv');
+% Gets the columns from the test file
+Y = load('../../../dataset/lomita/labelsSmall_without_unlabeled.csv');
 
 
 %% Split the data into app, val and test
 [Xapp, Yapp, Xtest, Ytest] = splitdata(data, Y, 0.75);
+[Xapp, Yapp, Xval, Yval] = splitdata(Xapp, Yapp, 0.7);
 
+[nApp, p] = size(Xapp);
+[nVal, p] = size(Xval);
+
+moyenne = mean(Xapp);
+variance = std(Xapp);
+
+% Center and reduce
+Xapp = (Xapp - ones(nApp, 1) * moyenne) ./ (ones(nApp, 1) * variance); 
+Xval = (Xval - ones(nVal, 1) * moyenne) ./ (ones(nVal, 1) * variance);
+	
+
+tic
 W = zeros(size(Xapp, 2), 25);
 b = zeros(1, 25);
 
 % Train all svm
-for i = 1 : 5
-	if (i == 3)
+for i = 1 : 4
+	if (i == 2)
 		disp('Hang in there, you are half-way throw the calculation')
 	end
 	for j = 1 : 5
-		if (j ~= i)
+		if (j > i)
+			% Find the data with label i and j and put label -1 and 1
+			% For app set
 			ind_i = find(Yapp == i);
 			ind_j = find(Yapp == j);
 
-			Y_tmp = Yapp;
+			Yapp_tmp = Yapp;
 
-			Y_tmp(ind_i, :) = 1;
-			Y_tmp(ind_j, :) = -1;
+			Yapp_tmp(ind_i, :) = 1;
+			Yapp_tmp(ind_j, :) = -1;
 
-			X_ij = [Xapp(ind_i, :); Xapp(ind_j, :)];
-			Y_ij = [Y_tmp(ind_i, :); Y_tmp(ind_j, :)];
+			Xapp_ij = [Xapp(ind_i, :); Xapp(ind_j, :)];
+			Yapp_ij = [Yapp_tmp(ind_i, :); Yapp_tmp(ind_j, :)];
 
-			[w, b, moyenne, variance] = svm_train_linear(X_ij, Y_ij);
+			% For val set
+			ind_i = find(Yval == i);
+			ind_j = find(Yval == j);
+
+			Yval_tmp = Yval;
+
+			Yval_tmp(ind_i, :) = 1;
+			Yval_tmp(ind_j, :) = -1;
+
+			Xval_ij = [Xval(ind_i, :); Xval(ind_j, :)];
+			Yval_ij = [Yval_tmp(ind_i, :); Yval_tmp(ind_j, :)];
+
+			% Do the svm
+			[w, b] = svm_train_linear(Xapp_ij, Yapp_ij, Xval_ij, Yval_ij);
 			W(:, (i-1)*5 + j) = w;
 			B((i-1)*5 + j) = b;
 		end	
@@ -55,9 +83,9 @@ Xtest = (Xtest - ones(nTest, 1) * mean(Xtest)) ./ (ones(nTest, 1) * std(Xtest));
 
 preds = [];
 
-for i = 1 : 5
+for i = 1 : 4
 	for j = 1 : 5
-		if (i ~= j)
+		if (j > i)
 			pred = svm_predict_linear(Xtest, W(:, (i-1)*5 + j), B((i-1)*5 + j));
 			% Replaces 1 with i and -1 with j
 			pred = (pred + 1) / 2 * i - (pred - 1) / 2 * j;
@@ -66,7 +94,7 @@ for i = 1 : 5
 	end
 end
 
-
+toc
 pred_by_class = [];
 for i = 1 : 5
 	pred_by_class = [pred_by_class sum((preds == i), 2)];
@@ -86,5 +114,3 @@ disp(strcat('Prediction: car | True : ', num2str(sum((pred_final == 3) .* (Ytest
 disp(strcat('Prediction: car | False : ', num2str(sum((Ytest == 3)) - sum((pred_final == 3) .* (Ytest == 3)))))
 disp(strcat('Prediction: pedestrian | True : ', num2str(sum((pred_final == 4) .* (Ytest == 4)))))
 disp(strcat('Prediction: pedestrian | False : ', num2str(sum((Ytest == 4)) - sum((pred_final == 4) .* (Ytest == 4)))))
-disp(strcat('Prediction: unlabeled | True : ', num2str(sum((pred_final == 5) .* (Ytest == 5)))))
-disp(strcat('Prediction: unlabeled | False : ', num2str(sum((Ytest == 5)) - sum((pred_final == 5) .* (Ytest == 5)))))
