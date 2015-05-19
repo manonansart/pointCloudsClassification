@@ -23,16 +23,15 @@ Y = load('../../../dataset/lomita/labelsSmall_without_unlabeled.csv');
 
 [nApp, p] = size(Xapp);
 [nVal, p] = size(Xval);
+[nTest, p] = size(Xtest);
 
 moyenne = mean(Xapp);
 variance = std(Xapp);
 
 % Center and reduce
-Xapp = (Xapp - ones(nApp, 1) * moyenne) ./ (ones(nApp, 1) * variance); 
+Xapp = (Xapp - ones(nApp, 1) * moyenne) ./ (ones(nApp, 1) * variance);
 Xval = (Xval - ones(nVal, 1) * moyenne) ./ (ones(nVal, 1) * variance);
-
-[nTest, p] = size(Xtest);
-Xtest = (Xtest - ones(nTest, 1) * mean(Xtest)) ./ (ones(nTest, 1) * std(Xtest));
+Xtest = (Xtest - ones(nTest, 1) * moyenne) ./ (ones(nTest, 1) * variance);
 
 
 tic
@@ -68,7 +67,7 @@ for i = 1:length(C_list)
 				[w, b] = svm_train_linear(Xapp_ij, Yapp_ij, C);
 				W(:, (i-1)*5 + j) = w;
 				B((i-1)*5 + j) = b;
-			end	
+			end
 		end
 	end
 
