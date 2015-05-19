@@ -104,11 +104,11 @@ pred_final = pred_final';
 erreur = sum(pred_final ~= Ytest) / nTest * 100
 
 
-disp(strcat('Prediction: background | True : ', num2str(sum((pred_final == 1) .* (Ytest == 1)))))
-disp(strcat('Prediction: background | False : ', num2str(sum((Ytest == 1)) - sum((pred_final == 1) .* (Ytest == 1)))))
-disp(strcat('Prediction: bicyclist | True : ', num2str(sum((pred_final == 2) .* (Ytest == 2)))))
-disp(strcat('Prediction: bicyclist | False : ', num2str(sum((Ytest == 2)) - sum((pred_final == 2) .* (Ytest == 2)))))
-disp(strcat('Prediction: car | True : ', num2str(sum((pred_final == 3) .* (Ytest == 3)))))
-disp(strcat('Prediction: car | False : ', num2str(sum((Ytest == 3)) - sum((pred_final == 3) .* (Ytest == 3)))))
-disp(strcat('Prediction: pedestrian | True : ', num2str(sum((pred_final == 4) .* (Ytest == 4)))))
-disp(strcat('Prediction: pedestrian | False : ', num2str(sum((Ytest == 4)) - sum((pred_final == 4) .* (Ytest == 4)))))
+disp(strcat('Truth: background | Good prediction : ', num2str(sum((pred_final == 1) .* (Ytest == 1)))))
+disp(strcat('Truth: background | Wrong prediction : ', num2str(sum((Ytest == 1)) - sum((pred_final == 1) .* (Ytest == 1)))))
+disp(strcat('Truth: bicyclist | Good prediction : ', num2str(sum((pred_final == 2) .* (Ytest == 2)))))
+disp(strcat('Truth: bicyclist | Wrong prediction : ', num2str(sum((Ytest == 2)) - sum((pred_final == 2) .* (Ytest == 2)))))
+disp(strcat('Truth: car | Good prediction : ', num2str(sum((pred_final == 3) .* (Ytest == 3)))))
+disp(strcat('Truth: car | Wrong prediction : ', num2str(sum((Ytest == 3)) - sum((pred_final == 3) .* (Ytest == 3)))))
+disp(strcat('Truth: pedestrian | Good prediction : ', num2str(sum((pred_final == 4) .* (Ytest == 4)))))
+disp(strcat('Truth: pedestrian | Wrong prediction : ', num2str(sum((Ytest == 4)) - sum((pred_final == 4) .* (Ytest == 4)))))
