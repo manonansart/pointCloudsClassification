@@ -4,7 +4,7 @@ Afin de mettre en place nos classifieurs pour identifier les nuages de points 3D
 	\subsection{Métriques statistiques basiques}
 		Dans un premier temps, nous avons extrait des métriques statistiques très simples basées sur l'intensité des points. Nous avons pour chaque nuage de points calculé la moyenne, la variance, le minimum et le maximum des intensités.\\
 
-		En effet, ces valeurs changent selon les classes. On peut le voir dans le tableau suivant, présentant les moyennes des trois attributs sur des nuages de points de type voitures et background :\\
+		En effet, ces valeurs changent selon les classes. On peut le voir dans le tableau suivant, présentant les moyennes des quatre attributs sur des nuages de points de type voitures et background :\\
 
 		\begin{center}
 			\begin{tabular}{|l||c|c|c|c|}
@@ -52,9 +52,9 @@ Afin de mettre en place nos classifieurs pour identifier les nuages de points 3D
 
 		On calcule ensuite le nouveau nuage de point redressé avec la formule:
 		\[ P_T = R_z * P_0\]
-		où $P_0$ est le nuage de points d'origine.
+		où $P_0$ est le nuage de points d'origine. \\
 
-		On peut ensuite calculer les 3 attributs de la \emph{bounding-box} sur ce nouveau nuage de points.
+		Nous appliquons ensuite une translation à l'origine sur le nuage de point redressé pour le centrer. On peut maintenant calculer les 3 attributs de la \emph{bounding-box} sur ce nouveau nuage de points.
 
 
 	\subsection{Scatter-ness, linear-ness et surface-ness}
