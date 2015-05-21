@@ -57,7 +57,7 @@
 \newcommand{\hlineGras}{\Xhline{2\arrayrulewidth}}
 
 \def\changemargin#1#2{\list{}{\rightmargin#2\leftmargin#1}\item[]}
-\let\endchangemargin=\endlist 
+\let\endchangemargin=\endlist
 
 \begin{document}
 	\titleINSA{15}{images/objet3D2.jpg}{0}{0}{227}{}{\textcolor{white}{}}
@@ -68,7 +68,7 @@
 	\chapter{Introduction}
 		\input{textes/0_introduction}
         \chapter{Jeu de données}
-		\input{textes/1_donnees}    
+		\input{textes/1_donnees}
 	\chapter{Choix des attributs}
 		\input{textes/2_attributs}
         \chapter{Classification}
@@ -77,6 +77,11 @@
 		\input{textes/4_PCL}
 	\chapter{Conclusion}
 		\input{textes/5_Conclusion}
-        \chapter{Sources}
-                \input{textes/6_sources}
+    \chapter{Sources}
+        \input{textes/6_sources}
+
+    % Bibliographie
+	\nocite{*} %pour citer les sources sans mettre de référence dans le texte
+	\bibliographystyle{abbrv} %classé par ordre alphabétique et certains mots abrégés
+	\bibliography{textes/bibli}
 \end{document}
