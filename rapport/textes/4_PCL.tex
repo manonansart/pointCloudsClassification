@@ -13,11 +13,15 @@ M. Alfredo Guerrero nous a laissé le choix dans l'outil à utiliser pour réali
 
 	De même, dans le dossier essai\_segmentation\_2, nous avons testé une méthode de segmentation par croissance de régions. A noter cependant que cela ne fonctionne pas avec nos fichiers .pcd (core dump), nous avons dû utiliser le fichiers .pcd donné dans le tutoriel associé.\\
 
-\section{Abandon de PCL}
+	Nous avons aussi essayé d'extraire des spin images depuis nos données, en utilisant la classe SpinImage de PCL ; mais les méthodes implémentées ne permettent pas de calculer des spin images sur des nuages dont le nombre de points est faible, comme les nôtres.\\
 
-	Nous avons finalement abandonné PCL au profit de Matlab. En effet, nous avons essayé d'extraire des spin images depuis nos données, en utilisant la classe SpinImage de PCL ; mais les méthodes implémentées ne permettent pas de calculer des spin images sur des nuages dont le nombre de points est faible, comme les nôtres.\\
+\section{Utilisation de Matlab}
 
-	De plus, il n'y a que des fonctions de clusterings, c'est-à-dire de l'apprentissage non-supervisé, qui soient déjà implémenté dans PCL, au contraire de Matlab.\\
+	Nous avons finalement utilisé Matlab plutôt que PCL, pour plusieurs raisons. La première est qu'il n'y a pas autant de méthodes de classification (non supervisées ou supervisées) déjà opérationnelles sur PCL par rapport à Matlab. Il y a quelques fonctions de clustering en PCL mais il s'agit d'apprentissage non-supervisé alors que nous avons un problème d'apprentissage supervisé : nous connaissons déjà les classes dans lesquelles nous voulons classifier nos objets.\\
+
+	De plus, le temps de développement sur PCL est supérieur à Matlab puisque nous connaissons beaucoup mieux le langue associé à Matlab comparé au C++, puisque c'est avec Matlab que nous avons implémentés nos algorithmes en cours de Fouille de Données. \\
+
+	PCL est plus performant pour efectuer des calculs en temps réel par rapport à Matlab, mais étant donné que nos calculs se font offline, nous avons priviliégié Matlab. \\
 
 	Finalement, PCL aurait pu nous servir pour extraire des caractéristiques de nos nuages de points, mais nous nous sommes rendus compte que cette librairie permettait surtout d'effectuer du traitement sur des images 3D ayant des milliers de points et en XYZRGB.\\
 
