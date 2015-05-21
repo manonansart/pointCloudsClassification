@@ -40,7 +40,7 @@ Afin de mettre en place nos classifieurs pour identifier les nuages de points 3D
 
 		La \emph{bounding-box} représente l'amplitude du nuage de points selon les trois dimensions. Pour chaque dimension, nous aurons donc un attribut qui correspond à la différence entre le maximum de cette coordonnée et le minimum de cette coordonnée, pour chaque nuage de points.\\
 
-		Afin de pouvoir calculer la \emph{bounding-box}, il nous a tout d'abord fallu  "redresser" le nuage de points selon l' axe $z$ (nous considérons que le terrain est plat et qu'il n'y a donc pas besoin de redresser l'image selon $x$ et $y$).
+		Afin de pouvoir calculer la \emph{bounding-box}, nous avons dû "redresser" le nuage de points selon l' axe $z$, en considérant que le terrain est plat et qu'il n'y a donc pas besoin de redresser l'image selon $x$ et $y$).
 		Nous avons donc calculé l'angle $\theta$ de la rotation, grâce à la formule:
 
 		\[ tan(2 \theta) = 2 * \frac{\bar{x}\bar{y}}{\bar{x}^2 - \bar{y}^2} \]

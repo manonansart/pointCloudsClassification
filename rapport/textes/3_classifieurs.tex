@@ -7,7 +7,7 @@
 	Dans un premier temps nous avons travaillé sur deux classes, ce qui est le problème le plus simple à résoudre avec des SVM. Nous avons pour cela réalisé deux SVM, un svm linéaire et un svm gaussien. Nous avons effectué de la validation croisée afin d'identifier les hyper-paramètres (C pour le svm linéaire, et C et sigma pour le svm gaussien).
 
 	Dans un second temps nous avons travaillé sur un jeu de données contenant 4 classes et des données \emph{unlabeled} représentant une cinquième classe. Les données unlabeled ont été retirées de l'ensemble de l'apprentissage car elle pouvait correspondre à n'importe quelle classe et donc perturber le SVM.
-	Nous avons ensuite utilisé deux méthodes permettant de faire de la classification avec plus de deux classes : 
+	Nous avons ensuite utilisé deux méthodes permettant de faire de la classification avec plus de deux classes :
 
 	\begin{itemize}
 	\item La méthode \emph{one-versus-all} consiste à construire M classifieurs binaires en attribuant le label 1 aux échantillons de l'une des classes et le label -1 à toutes les autres. En phase de test, le classifieur donnant la marge la plus élevée remporte le vote.
