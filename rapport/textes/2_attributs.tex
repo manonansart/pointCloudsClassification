@@ -1,4 +1,11 @@
-Afin de mettre en place nos classifieurs pour identifier les nuages de points 3D, nous avons tout d'abord dû extraire plusieurs métriques nous permettant de représenter nos images de points. Nous prenions pour cela en entrée un fichier par nuage de points, comportant pour chaque point ses coordonnées (x, y et z) et son intensité
+Afin de mettre en place nos classifieurs pour identifier les nuages de points 3D, nous avons tout d'abord dû extraire plusieurs métriques nous permettant de représenter nos images de points. Nous prenions pour cela en entrée un fichier par nuage de points, comportant pour chaque point ses coordonnées (x, y et z) et son intensité. Voici en figure \ref{fig:nuage_de_points} un exemple de nuage de points représentant un cycliste :
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.25]{images/objet3D2.jpg}
+		\caption{Exemple de \emph{nuage de points}}
+		\label{fig:nuage_de_points}
+	\end{figure}
 
 \section{Attributs utilisés}
 	\subsection{Métriques statistiques basiques}
@@ -58,11 +65,11 @@ Afin de mettre en place nos classifieurs pour identifier les nuages de points 3D
 
 
 	\subsection{Scatter-ness, linear-ness et surface-ness}
-		D'autres attributs intéressants à étudier dans le cadre de la reconnaissance d'objets 3D sont la \emph{scatter-ness}, la \emph{linear-ness} et la \emph{surface-ness}, qui traduisent la forme de l'objet. 
+		D'autres attributs intéressants à étudier dans le cadre de la reconnaissance d'objets 3D sont la \emph{scatter-ness}, la \emph{linear-ness} et la \emph{surface-ness}, qui traduisent la forme de l'objet.
 
 		Pour les calculer, on calcule tout d'abord la matrice de covariance des coordonnées des points, puis on calcule les valeurs propres $\lambda_0$, $\lambda_1$ et $\lambda_2$ de la matrice de covariance. \\
 
-		On s’intéresse ensuite à la différence entre ces valeurs : 
+		On s’intéresse ensuite à la différence entre ces valeurs :
 		\begin{itemize}
 			\item Si ces trois valeurs sont similaires ($\lambda_0 \approx \lambda_1 \approx \lambda_2$), les points sont répartis de manière égale selon les trois dimensions, comme pour une sphère. On dit qu'ils sont dispersés et on parle de \emph{scatter-ness}.
 			\item Si au contraire une valeur est beaucoup plus grande que les deux autres ($\lambda_0 \gg \lambda_1 \approx \lambda_2$), cela signifie que les points sont principalement répartis sur une seule dimension, ils forment une sorte de ligne. On parle alors de \emph{linear-ness}.
