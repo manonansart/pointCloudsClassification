@@ -17,6 +17,8 @@
 
 \section{Résultats obtenus}
 
+Nous n'avons pas pu faire tourner nos algorithmes sur la totalité des données, nos machines n'étant pas assez puissantes. Nous avons donc réduit la taille des données et avons obtenu des résultats déjà satisfaisants. Notre dataset actuel est composé de 1722 observations ayant chacune 10 attributs.
+
 	\subsection{Classification sur deux classes}
 		\subsubsection{K-moyennes}
 		\subsubsection{SVM linéaire}
@@ -25,3 +27,8 @@
 	\subsection{Classification sur 4 classes}
 		\subsubsection{SVM one-versus-one}
 		\subsubsection{SVM one-versus-all}
+			\begin{itemize}
+				\item Noyau polynômial : 4.5\% d'erreur sur 10 runs ; C = 10e9 ; lambda = 1e-6.
+				\item Noyau gaussien : 12\% d'erreur sur 10 runs ; C = 10e9 ; lambda = 1e-6.
+				\item Noyau gaussien : 8\% d'erreur sur 10 runs ; C = 1 ; lambda = 1e-6.
+			\end{itemize}
