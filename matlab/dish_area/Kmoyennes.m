@@ -1,8 +1,8 @@
 close all
 clear all
 
-data = load('../dataset/dish_area_dataset/attributes.csv');
-Y = load('../dataset/dish_area_dataset/labels.csv');
+data = load('../../dataset/dish_area_dataset/attributes.csv');
+Y = load('../../dataset/dish_area_dataset/labels.csv');
 
 clusters = kmeans(data, 2);
 

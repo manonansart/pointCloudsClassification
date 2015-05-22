@@ -1,8 +1,8 @@
 clear all
 close
 
-attributes = load('../dataset/dish_area_dataset/attributes.csv');
-[nb1, nb2, labels] = textread('../dataset/dish_area_labels.txt', '%f %f %s');
+attributes = load('../../dataset/dish_area_dataset/attributes.csv');
+[nb1, nb2, labels] = textread('../../dataset/dish_area_labels.txt', '%f %f %s');
 labelsNum = strcmp(labels, 'background') + 2 * strcmp(labels, 'car');
 indicesCar = find(labelsNum == 2);
 indicesBack = find(labelsNum == 1);

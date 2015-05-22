@@ -1,5 +1,5 @@
 
-% Expected path format : 'foo/', '../dataset/dish_area_dataset/', '../dataset/lomina/'
+% Expected path format : 'foo/', '../../dataset/dish_area_dataset/', '../dataset/lomina/'
 
 function att = attributes(fpath)
 	att = [];
