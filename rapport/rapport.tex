@@ -43,6 +43,9 @@
 % Pour inclure des pages PDF
 \usepackage[final]{pdfpages}
 
+% Pour l'arborescence des dossiers
+\usepackage{dirtree}
+
 % Couverture
 \usepackage{templateINSA}
 \initINSA
@@ -82,4 +85,8 @@
 	\nocite{*} %pour citer les sources sans mettre de référence dans le texte
 	\bibliographystyle{abbrv} %classé par ordre alphabétique et certains mots abrégés
 	\bibliography{textes/bibli}
+
+	\chapter{Annexes}
+		\input{textes/7_annexes}
+
 \end{document}
