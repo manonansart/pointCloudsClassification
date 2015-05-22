@@ -24,7 +24,7 @@ for i = 1:nbClasses
 end
 
 % Calculate the error rate
-erreur = sum(Y ~= clusters) / length(clusters) * 100
+erreur = sum(Y ~= nvClusters) / length(clusters) * 100
 
 % Matrice de confusion
 disp(strcat('Prediction: background | Truth : background : ', num2str(sum((clusters == 1) .* (Y == 1)))))
