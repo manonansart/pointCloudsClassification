@@ -1,9 +1,7 @@
-% Note : About 5% error (on 4 runs) with the small dataset w/o unlabeled but with the
+% Note : About 3% error (on 10 runs) with the small dataset w/o unlabeled but with the
 % class background over-represented.
 % We now need to test it on the entire dataset w/o unlabeled and with a
-% class smaller background class ; we also need to choose C and lambda
-% properly.
-
+% class smaller background class 
 clear all
 close all
 clc
@@ -16,12 +14,19 @@ data = load('../../../dataset/lomita/attributesSmall_without_unlabeled.csv');
 Y = load('../../../dataset/lomita/labelsSmall_without_unlabeled.csv');
 
 % Split the data into app and test
-[Xapp, Yapp, Xtest, Ytest] = splitdata(data, Y, 0.75);
+[Xapp, Yapp, Xtest, Ytest] = splitdata(data, Y, 0.70);
+
+[n, p] = size(Xapp);
+[nt, pt] = size(Xtest);
+
+moyenne = mean(Xapp);
+variance = std(Xapp);
+
+% Center and reduce
+Xapp = (Xapp - ones(n, 1) * moyenne) ./ (ones(n, 1) * variance);
+Xtest = (Xtest - ones(nt, 1) * moyenne) ./ (ones(nt, 1) * variance);
 
 %% 1 - Clean data (to be refactored)
-
-[n , p] = size(Xapp);
-[nt , pt] = size(Xtest);
 
 X1 = Xapp(Yapp==1);
 Y1 = Yapp(Yapp==1);
@@ -46,7 +51,7 @@ yi = [y1 ; y2 ; y3 ; y4];
 
 % Build 4 SVM (one class vs the 3 others);
 
-kernel='poly' ; d=1;
+kernel='gaussian' ; d=1;
 C=10e9;
 lambda=1e-6;
 [xsup1, w1, w01, ind_sup1, a1] = svmclass(Xapp, yi(:,1), C, lambda, kernel, d, 0);
@@ -72,3 +77,6 @@ ypred4 = svmval(Xtest, xsup4, w4, w04, kernel, d);
 nbbienclasse=length(find(Ytest == yc'));
 freq_err = 1 - nbbienclasse /(nt);
 perc_err = freq_err * 100
+
+fprintf('Erreur de classification avec un SVM one v. all (données Lomita réduites) : %f %% \n',  perc_err);
+fprintf('Kernel utilisé : %s \n',kernel);
