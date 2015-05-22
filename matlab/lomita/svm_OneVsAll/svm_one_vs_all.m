@@ -8,10 +8,10 @@ clc
 
 %% 0 - Load and split the data
 
-data = load('../../../dataset/lomita/attributes_without_unlabeled.csv');
+data = load('../../../dataset/lomita/attributesSmall_without_unlabeled.csv');
 
 % Gets the columns from the teXtest file
-Y = load('../../../dataset/lomita/labels_without_unlabeled.csv');
+Y = load('../../../dataset/lomita/labelsSmall_without_unlabeled.csv');
 
 % Split the data into app and test
 [Xapp, Yapp, Xtest, Ytest] = splitdata(data, Y, 0.60);
@@ -80,3 +80,15 @@ perc_err = freq_err * 100
 
 fprintf('Erreur de classification avec un SVM one v. all (données Lomita réduites) : %f %% \n',  perc_err);
 fprintf('Kernel utilisé : %s \n',kernel);
+
+
+%% Matrice de confusion
+nbClasses = length(unique(Y));
+matConf = zeros(nbClasses, nbClasses);
+for i = 1:nbClasses
+	for j = 1:nbClasses
+		matConf(i, j) = sum((yc' == j) .* (Ytest == i));
+	end
+end
+
+matConf

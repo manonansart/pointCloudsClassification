@@ -134,3 +134,13 @@ disp(strcat('Truth: car | Good prediction : ', num2str(sum((pred_final == 3) .* 
 disp(strcat('Truth: car | Wrong prediction : ', num2str(sum((Ytest == 3)) - sum((pred_final == 3) .* (Ytest == 3)))))
 disp(strcat('Truth: pedestrian | Good prediction : ', num2str(sum((pred_final == 4) .* (Ytest == 4)))))
 disp(strcat('Truth: pedestrian | Wrong prediction : ', num2str(sum((Ytest == 4)) - sum((pred_final == 4) .* (Ytest == 4)))))
+
+nbClasses = length(unique(Y));
+matConf = zeros(nbClasses, nbClasses);
+for i = 1:nbClasses
+	for j = 1:nbClasses
+		matConf(i, j) = sum((pred_final == j) .* (Ytest == i));
+	end
+end
+
+matConf
