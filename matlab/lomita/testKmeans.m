@@ -37,3 +37,13 @@ disp(strcat('Truth: car | Wrong prediction : ', num2str(sum((Y == 3)) - sum((clu
 disp(strcat('Truth: pedestrian | Good prediction : ', num2str(sum((clusters == 4) .* (Y == 4)))))
 disp(strcat('Truth: pedestrian | Wrong prediction : ', num2str(sum((Y == 4)) - sum((clusters == 4) .* (Y == 4)))))
 toc
+
+nbClasses = length(unique(Y));
+matConf = zeros(nbClasses, nbClasses);
+for i = 1:nbClasses
+	for j = 1:nbClasses
+		matConf(i, j) = sum((clusters == j) .* (Y == i));
+	end
+end
+
+matConf

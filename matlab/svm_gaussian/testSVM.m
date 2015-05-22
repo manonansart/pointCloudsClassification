@@ -73,3 +73,13 @@ disp(strcat('Prediction: background | Truth : background : ', num2str(sum((ypred
 disp(strcat('Prediction: background | Truth : car : ', num2str(sum((ypred == -1) .* (Ytest == 1)))))
 disp(strcat('Prediction: car | Truth : car : ', num2str(sum((ypred == 1) .* (Ytest == 1)))))
 disp(strcat('Prediction: car | Truth : background : ', num2str(sum((ypred == 1) .* (Ytest == -1)))))
+
+nbClasses = length(unique(Y));
+matConf = zeros(nbClasses, nbClasses);
+for i = 1:nbClasses
+	for j = 1:nbClasses
+		matConf(i, j) = sum((ypred == j) .* (Ytest == i));
+	end
+end
+
+matConf
