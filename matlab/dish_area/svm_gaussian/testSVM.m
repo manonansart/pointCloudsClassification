@@ -8,10 +8,10 @@ clc
 
 %%  Load the data and replace text labels
 
-data = load('../../dataset/dish_area_dataset/attributes.csv');
+data = load('../../../dataset/dish_area_dataset/attributes.csv');
 
 % Gets the columns from the text file
-Y = load('../../dataset/dish_area_dataset/labels.csv');
+Y = load('../../../dataset/dish_area_dataset/labels.csv');
 
 %% Split the data into app and test
 [Xapp, Yapp, Xtest, Ytest] = splitdata(data, Y, 0.67);
@@ -23,8 +23,8 @@ moyenne = mean(Xapp);
 variance = std(Xapp);
 
 % Center and reduce
-Xapp = (Xapp - ones(nApp, 1) * moyenne) ./ (ones(nApp, 1) * variance); 
-Xtest = (Xtest - ones(nTest, 1) * moyenne) ./ (ones(nTest, 1) * variance); 
+Xapp = (Xapp - ones(nApp, 1) * moyenne) ./ (ones(nApp, 1) * variance);
+Xtest = (Xtest - ones(nTest, 1) * moyenne) ./ (ones(nTest, 1) * variance);
 
 %% Calculate K kernel and G matrix
 kernel = 'gaussian';
@@ -50,7 +50,7 @@ epsilon = 10^-5;
 tic
 	lambda = eps^.5;
 	[alpha, b, pos] = monqp(H, e, Yapp, 0, inf, lambda, 0);
-    
+
     % pos correspond aux positions des alphas differents de 0. alpha = a(pos)
 	a4 = zeros(nApp, 1);
 	a4(pos) = alpha;
@@ -64,7 +64,7 @@ ypred(find(ypred > 0)) = 1;
 ypred(find(ypred < 0)) = -1;
 
 % Calculate the error rate (in percent)
-erreur = (length(find(ypred - Ytest > 0.0001)) / nTest) * 100  
+erreur = (length(find(ypred - Ytest > 0.0001)) / nTest) * 100
 
 disp(strcat('Prediction: background | Truth : background : ', num2str(sum((ypred == -1) .* (Ytest == -1)))))
 disp(strcat('Prediction: background | Truth : car : ', num2str(sum((ypred == -1) .* (Ytest == 1)))))
