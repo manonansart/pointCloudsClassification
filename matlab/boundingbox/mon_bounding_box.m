@@ -3,7 +3,7 @@ close all
 clc
 
 %% Bounding box
-nuage = loadpcd('segmented_0segment2.pcd');
+nuage = loadpcd('../../dataset/lomita/track_068segment_005.pcd');
 x=nuage(1,:);
 y=nuage(2,:);
 z=nuage(3,:);
