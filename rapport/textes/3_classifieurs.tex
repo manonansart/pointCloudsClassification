@@ -144,8 +144,23 @@
 		On remarque que, même si notre taux d'erreur est bon, les erreurs ne sont pas bien réparties entre les classes. Notre svm ne prédit jamais la bonne classe pour les imagettes de classe pedestrian et les résultats sont également faibles pour la classe bicyclist.
 
 		\subsubsection{SVM one-versus-all}
-			\begin{itemize}
-				\item Noyau polynômial : 4.5\% d'erreur sur 10 runs ; C = 10e9 ; lambda = 1e-6.
-				\item Noyau gaussien : 12\% d'erreur sur 10 runs ; C = 10e9 ; lambda = 1e-6.
-				\item Noyau gaussien : 8\% d'erreur sur 10 runs ; C = 1 ; lambda = 1e-6.
-			\end{itemize}
+			Nous avons mis en place un SVM one versus all en utilisant les fonction svmclass et svmval, permettant respectivement d'entrainer les svms et d'obtenir des prédictions. Grâce à ces fonctions nous avons créé des svms comparant chaque classe aux autres, puis la classe des nouvelles données étaient prédites grâce à un vote à la majorité. Nous n'avons pas ajouté de validation croisée sur ce svm car cela était trop couteux en temps.
+
+			Nous avons dans un premier temps utilisé un svm gaussien 4.65 \% d'erreurs. La matrice de confusion est la suivante : 
+			\begin{center}
+				\begin{tabular}{|l||c|c|c|c|}
+				  \hline
+				  \backslashbox{Vérité}{Prédiction}& background & bicyclist & car & pedestrian \\
+				  \hline
+				  background & 595 & 1 & 0 & 5 \\
+				  \hline
+				  bicyclist & 4 & 1 & 0 & 4 \\
+				   \hline
+				  car & 4 & 0 & 55 & 0 \\
+				   \hline
+				  pedestrian & 14 & 0 & 0 & 4 \\
+				  \hline
+				\end{tabular}
+			\end{center}
+
+			On remarque que les résultats sont plutôt bons pour les classes background et car mais mois pour les deux autres, qui sont moins représentées.
