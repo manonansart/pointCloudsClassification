@@ -11,10 +11,10 @@ clc
 
 %%  Load the data and replace text labels
 
-data = load('../../dataset/dish_area_dataset/attributesSmall.csv');
+data = load('../../../dataset/dish_area_dataset/attributesSmall.csv');
 
 % Gets the columns from the text file
-Y = load('../../dataset/dish_area_dataset/labelsSmall.csv');
+Y = load('../../../dataset/dish_area_dataset/labelsSmall.csv');
 
 % Replaces the label background (1) with -1 and the label car (2) with 1
 Y = (Y - 1) * 2 - 1;

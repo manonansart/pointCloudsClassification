@@ -3,10 +3,10 @@ close all
 clc
 
 %% load data
-X = load('../../../dataset/lomita/attributesSmall_without_unlabeled.csv');
+X = load('../../dataset/lomita/attributesSmall_without_unlabeled.csv');
 
 % Gets the columns from the teXtest file
-Y = load('../../../dataset/lomita/labelsSmall_without_unlabeled.csv');
+Y = load('../../dataset/lomita/labelsSmall_without_unlabeled.csv');
 
 data = [X Y];
 
@@ -23,7 +23,7 @@ i=randperm(n);
 % write the size wanted for the class background
 size_background_wanted = 200;
 
-% New background (reduced) 
+% New background (reduced)
 result=X1(i(1:size_background_wanted), :)
 
 %% Write in a csv

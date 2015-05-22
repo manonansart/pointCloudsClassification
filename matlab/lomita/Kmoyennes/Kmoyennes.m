@@ -1,8 +1,8 @@
 close all
 clear all
 
-data = load('../../dataset/lomita/attributes_without_unlabeled.csv');
-Y = load('../../dataset/lomita/labels_without_unlabeled.csv');
+data = load('../../../dataset/lomita/attributes_without_unlabeled.csv');
+Y = load('../../../dataset/lomita/labels_without_unlabeled.csv');
 
 tic
 clusters = kmeans(data, 2);
@@ -14,7 +14,7 @@ for i = 1:nbClasses
 	compteur = [];
 	for j = 1:nbClasses
 		compteur = [compteur sum((Y == i) .* (clusters == j))];
-	end	
+	end
 	[tmp nvLabel] = max(compteur);
 	nvLabels = [nvLabels nvLabel];
 end

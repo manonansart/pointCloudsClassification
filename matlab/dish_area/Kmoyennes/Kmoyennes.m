@@ -1,8 +1,8 @@
 close all
 clear all
 
-data = load('../../dataset/dish_area_dataset/attributes.csv');
-Y = load('../../dataset/dish_area_dataset/labels.csv');
+data = load('../../../dataset/dish_area_dataset/attributes.csv');
+Y = load('../../../dataset/dish_area_dataset/labels.csv');
 
 clusters = kmeans(data, 2);
 
@@ -13,7 +13,7 @@ for i = 1:nbClasses
 	compteur = [];
 	for j = 1:nbClasses
 		compteur = [compteur sum((Y == i) .* (clusters == j))];
-	end	
+	end
 	[tmp nvLabel] = max(compteur);
 	nvLabels = [nvLabels nvLabel];
 end
@@ -24,7 +24,7 @@ for i = 1:nbClasses
 end
 
 % Calculate the error rate
-erreur = sum(Y ~= nvClusters) / length(clusters) * 100
+erreur = sum(Y ~= clusters) / length(clusters) * 100
 
 % Matrice de confusion
 disp(strcat('Prediction: background | Truth : background : ', num2str(sum((clusters == 1) .* (Y == 1)))))
