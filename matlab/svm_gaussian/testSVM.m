@@ -11,10 +11,7 @@ clc
 data = load('../../dataset/dish_area_dataset/attributes.csv');
 
 % Gets the columns from the text file
-[nb1, nb2, labels] = textread('dish_area_labels.txt', '%f %f %s');
-
-% Replaces the label background with 1 and the label car with -1
-Y = strcmp(labels, 'background') - 1 * strcmp(labels, 'car');
+Y = load('../../dataset/dish_area_dataset/labels.csv');
 
 %% Split the data into app and test
 [Xapp, Yapp, Xtest, Ytest] = splitdata(data, Y, 0.67);
