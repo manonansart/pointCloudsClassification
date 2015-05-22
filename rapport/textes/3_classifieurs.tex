@@ -46,7 +46,6 @@
 
 \section{Résultats obtenus}
 
-Nous n'avons pas pu faire tourner nos algorithmes sur la totalité des données, nos machines n'étant pas assez puissantes. Nous avons donc réduit la taille des données et avons obtenu des résultats déjà satisfaisants. Notre dataset actuel est composé de 1722 observations ayant chacune 10 attributs.
 
 	\subsection{Classification sur deux classes (dish area)}
 		\subsubsection{K-moyennes}
@@ -65,11 +64,35 @@ Nous n'avons pas pu faire tourner nos algorithmes sur la totalité des données,
 			\end{center}
 
 			On constate que les erreurs sont plutôt bien réparties, c'est-à-dire qu'il n'y a pas plus d'erreur pour une classe pour une autre, ce qui était un risque étant donné que nos classes n'ont pas le même effectif.
+
 		\subsubsection{SVM linéaire}
+
 		\subsubsection{SVM gaussien}
 
 	\subsection{Classification sur 4 classes (lomita)}
+		Nous n'avons pas pu faire tourner nos algorithmes sur la totalité des données, nos machines n'étant pas assez puissantes. Nous avons donc réduit la taille des données et avons obtenu des résultats déjà satisfaisants. Notre dataset actuel est composé de 1722 observations ayant chacune 10 attributs.
+
 		\subsubsection{SVM one-versus-one}
+			Nous avons mis en place notre propre SVM One versus one. Cette méthode met en place plusieurs svm comparant les classes une à une, puis un vote à la majorité nous permet de prédire la classe pour une nouvelle donnée. Cette méthode étant couteuse en temps, nous avons choisi d'utiliser uniquement des svms linéraire. Nous obtenons 4.4 \% d'erreurs sur le petit jeu de données. Notre matrice de confusion est la suivante : 
+
+			\begin{center}
+				\begin{tabular}{|l||c|c|c|c|}
+				  \hline
+				  \backslashbox{Vérité}{Prédiction}& background & bicyclist & car & pedestrian \\
+				  \hline
+				  background & 372 & 3 & 0 & 0 \\
+				  \hline
+				  bicyclist & 4 & 2 & 0 & 0 \\
+				   \hline
+				  car & 1 & 0 & 36 & 0 \\
+				   \hline
+				  pedestrian & 10 & 1 & 0 & 0 \\
+				  \hline
+				\end{tabular}
+			\end{center}
+
+		On remarque que, même si notre taux d'erreur est bon, les erreurs ne sont pas bien réparties entre les classes. Notre svm ne prédit jamais la bonne classe pour les imagettes de classe pedestrian et les résultats sont également faibles pour la classe bicyclist.
+
 		\subsubsection{SVM one-versus-all}
 			\begin{itemize}
 				\item Noyau polynômial : 4.5\% d'erreur sur 10 runs ; C = 10e9 ; lambda = 1e-6.
