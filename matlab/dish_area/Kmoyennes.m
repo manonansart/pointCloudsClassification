@@ -18,8 +18,9 @@ for i = 1:nbClasses
 	nvLabels = [nvLabels nvLabel];
 end
 
+nvClusters = clusters;
 for i = 1:nbClasses
-	clusters(find(clusters == i)) = nvLabels(i);
+	nvClusters(find(clusters == nvLabels(i))) = i;
 end
 
 % Calculate the error rate
