@@ -3,7 +3,7 @@ close all
 clc
 
 %% load data
-data = load('../../../dataset/lomita/attributes_and_labels_without_unlabeled.csv');
+data = load('../../dataset/lomita/attributes_and_labels_without_unlabeled.csv');
 X = data(:, 1:10);
 Y = data(:, 11);
 X1 = data(Y==1, :);
@@ -19,7 +19,7 @@ i=randperm(n);
 % write the size wanted for the class background
 size_background_wanted = 7000;
 
-% New background (reduced) 
+% New background (reduced)
 result=X1(i(1:size_background_wanted), :)
 
 %% Write in a csv
