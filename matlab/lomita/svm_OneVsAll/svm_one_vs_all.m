@@ -1,7 +1,10 @@
-% Note : About 3% error (on 10 runs) with the small dataset w/o unlabeled but with the
+% Note: don't forget to add SVM-KM and splitdata to the path.
+
+% About 3% error (on 10 runs) with the small dataset w/o unlabeled but with the
 % class background over-represented.
-% We now need to test it on the entire dataset w/o unlabeled and with a
-% class smaller background class 
+% About 0.1% error (on 1 run) with the big dataset w/o unlabeled and with the
+% class background balanced.
+
 clear all
 close all
 clc

@@ -2,12 +2,13 @@ close all
 clear all
 clc
 
-% Note: don't forget to add splitdata, monqp and svmkernel to the path.
-% Results: error rate 1%, bestC 4.8 and runtime 30s -> without rotation
-% Results: error rate 4%, bestC 9 and runtime 30s -> with rotation
-% Resultats can change a lot depanding on the split because the svm is performed on a small dataset
-% C varies between 4 and 50, the error rates stays around 1-1.5 and runtime is constant
+% Note: don't forget to add SVM-KM and splitdata to the path.
+% With this svm 1 vs 1, the validation for C is made on each svm individually.
+% The result is that we have a different C for each svm and that it is time consuming.
 
+% About 4% error (on 1 runs) with the small dataset w/o unlabeled but with the
+% class background over-represented.
+% Not tested on the big dataset w/o unlabeled and with the class background balanced.
 
 %% Load and split the data
 data = load('../../../dataset/lomita/attributes_without_unlabeled_and_reduced_background');
