@@ -6,12 +6,11 @@ clear all
 close all
 clc
 
-%% 0 - Load and split the data
+%% Load and split the data
 
-data = load('../../../dataset/lomita/attributesSmall_without_unlabeled.csv');
+data = load('../../../dataset/lomita/attributes_without_unlabeled_and_reduced_background');
 
-% Gets the columns from the teXtest file
-Y = load('../../../dataset/lomita/labelsSmall_without_unlabeled.csv');
+Y = load('../../../dataset/lomita/labels_without_unlabeled_and_reduced_background.csv');
 
 % Split the data into app and test
 [Xapp, Yapp, Xtest, Ytest] = splitdata(data, Y, 0.60);

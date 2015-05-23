@@ -9,12 +9,9 @@ clc
 % C varies between 4 and 50, the error rates stays around 1-1.5 and runtime is constant
 
 
-%%  Load the data and replace text labels
-
-data = load('../../../dataset/lomita/attributesSmall_without_unlabeled.csv');
-
-% Gets the columns from the test file
-Y = load('../../../dataset/lomita/labelsSmall_without_unlabeled.csv');
+%% Load and split the data
+data = load('../../../dataset/lomita/attributes_without_unlabeled_and_reduced_background');
+Y = load('../../../dataset/lomita/labels_without_unlabeled_and_reduced_background.csv');
 
 
 %% Split the data into app, val and test
