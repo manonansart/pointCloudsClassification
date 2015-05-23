@@ -1,6 +1,6 @@
 PCL, ou Point Cloud Library, est une librairie C++ open source utilisée pour les traitements d'images 2D/3D et de nuages de points.\\
 
-\section{utilisation de PCL}
+\section{Utilisation de PCL}
 
 	Comme dit précédemment, le dataset original est dans un format de fichier vidéo tm. Les données ont donc été extraites en utilisant une application basée sur ROS, puis exportées en format PCD. Les fichiers PCD sont des nuages de points 3D. Pour traiter ces données, nous avons donc utilisé la bibliothèque PCL en C++, qui est une plateforme utilisée dans des applications robotiques, développée depuis 2010 et est toujours en développement. Elle regroupe de nombreuses techniques de traitement d'images comme des nouvelles méthodes d'extraction des attributs et de "keypoints", de classification, de reconstruction de surface, de reconnaissance de forme, ou encore de filtrage de bruit.
 
@@ -21,7 +21,7 @@ PCL, ou Point Cloud Library, est une librairie C++ open source utilisée pour le
 
 	De plus, le temps de développement sur PCL est supérieur à Matlab puisque nous connaissons beaucoup mieux le langue associé à Matlab comparé au C++, puisque c'est avec Matlab que nous avons implémentés nos algorithmes en cours de Fouille de Données. \\
 
-	PCL est plus performant pour efectuer des calculs en temps réel par rapport à Matlab, mais étant donné que nos calculs se font offline, nous avons priviliégié Matlab. \\
+	PCL est plus performant pour effectuer des calculs en temps réel par rapport à Matlab, mais étant donné que nos calculs se font offline, nous avons privilégié Matlab. \\
 
 	Finalement, PCL aurait pu nous servir pour extraire des caractéristiques de nos nuages de points, mais nous nous sommes rendus compte que cette librairie permettait surtout d'effectuer du traitement sur des images 3D ayant des milliers de points et en XYZRGB.\\
 

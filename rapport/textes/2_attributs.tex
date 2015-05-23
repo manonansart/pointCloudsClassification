@@ -25,7 +25,7 @@ Afin de mettre en place nos classifieurs pour identifier les nuages de points 3D
 		\end{center}
 
 
-		Cela nous montre que ces attributs peuvent présenter des différences significatives selon les classe, il est donc intéresssant de prendre en compte ces métriques pour la classification.
+		Cela nous montre que ces attributs peuvent présenter des différences significatives selon les classe, il est donc intéressant de prendre en compte ces métriques pour la classification.
 
 	\subsection{Bounding-box}
 		La \emph{bounding-box} permet de connaître la forme de l'objet en 3D pour distinguer des objets de catégorie différentes.
@@ -36,18 +36,17 @@ Afin de mettre en place nos classifieurs pour identifier les nuages de points 3D
 			\caption{Exemple de \emph{bounding-box} sur un cycliste}
 			\label{fig:image}
 		\end{figure}
-		% Source : http://www.mathworks.com/matlabcentral/fileexchange/screenshots/2122/original.jpg
 
 		La \emph{bounding-box} représente l'amplitude du nuage de points selon les trois dimensions. Pour chaque dimension, nous aurons donc un attribut qui correspond à la différence entre le maximum de cette coordonnée et le minimum de cette coordonnée, pour chaque nuage de points.\\
 
-		Afin de pouvoir calculer la \emph{bounding-box}, nous avons dû "redresser" le nuage de points selon l' axe $z$, en considérant que le terrain est plat et qu'il n'y a donc pas besoin de redresser l'image selon $x$ et $y$).
+		Afin de pouvoir calculer la \emph{bounding-box}, nous avons dû "redresser" le nuage de points selon l'axe $z$, en considérant que le terrain est plat et qu'il n'y a donc pas besoin de redresser l'image selon $x$ et $y$).
 		Nous avons donc calculé l'angle $\theta$ de la rotation, grâce à la formule:
 
-		\[ tan(2 \theta) = 2 * \frac{\bar{x}\bar{y}}{\bar{x}^2 - \bar{y}^2} \]
-		\[ \theta = \frac{1}{2} * arctan(2 \frac{\bar{x}\bar{y}}{\bar{x}^2 - \bar{y}^2}) \]
+		\[ tan(2 \theta) = 2 \times \frac{\bar{x}\bar{y}}{\bar{x}^2 - \bar{y}^2} \]
+		\[ \theta = \frac{1}{2} \times arctan(2 \frac{\bar{x}\bar{y}}{\bar{x}^2 - \bar{y}^2}) \]
 
-		avec \[ \bar{x} = \frac{1}{n} * \sum_{i =1}^n{x_i} \]
-		\[ \bar{y} = \frac{1}{n} * \sum_{i =1}^n{y_i} \]
+		avec \[ \bar{x} = \frac{1}{n} \times \sum_{i =1}^n{x_i} \]
+		\[ \bar{y} = \frac{1}{n} \times \sum_{i =1}^n{y_i} \]
 
 		Une fois que nous avons trouvé l'angle de rotation, il faut appliquer la rotation au nuage de points. Pour cela on construit la matrice $R_z$ telle que :
 
@@ -57,11 +56,11 @@ Afin de mettre en place nos classifieurs pour identifier les nuages de points 3D
 		0 & 0 & 1
 		\end{bmatrix}\]
 
-		On calcule ensuite le nouveau nuage de point redressé avec la formule:
-		\[ P_T = R_z * P_0\]
+		On calcule ensuite le nouveau nuage de points redressé avec la formule:
+		\[ P_T = R_z \times P_0\]
 		où $P_0$ est le nuage de points d'origine. \\
 
-		Nous appliquons ensuite une translation à l'origine sur le nuage de point redressé pour le centrer. On peut maintenant calculer les 3 attributs de la \emph{bounding-box} sur ce nouveau nuage de points.
+		Nous appliquons ensuite une translation à l'origine sur le nuage de points redressé pour le centrer. On peut maintenant calculer les 3 attributs de la \emph{bounding-box} sur ce nouveau nuage de points.
 
 
 	\subsection{Scatter-ness, linear-ness et surface-ness}
@@ -85,10 +84,10 @@ Afin de mettre en place nos classifieurs pour identifier les nuages de points 3D
 
 \section{Attribut étudié : les spin-images}
 
-	La spin image est l’image du nuage 3D prise en un point, perpendiculairement à la normale en ce point (donc selon le plan tangent). Le but est de prendre est de prendre les meilleures spin images pour chaque nuage de point car c’est sur ces images 2D que nous pouvons réaliser une classification.
+	La spin image est l’image du nuage 3D prise en un point, perpendiculairement à la normale en ce point (donc selon le plan tangent). Le but est de prendre les meilleures spin images pour chaque nuage de points car c’est sur ces images 2D que nous pouvons réaliser une classification.
 
 
-\section{Autre attribut possible : les images orhtogonales}
+\section{Autre attribut possible : les images orthogonales}
 
-	Les images orthogonales sont obtenues par projection orthogonale de l'image 3D. La projetcion orthogonale se fait selon une direction de projection, sur un plan tel que le plan et la direction sont orthogonaux. Il n'y a donc pas de point de vue. Des caméras existent afin de récupérer directement ses images, à l'oposition des caméras classiques qui capturent la projection en perspective de l'objet, de la même manière que l'oeil humain.
+	Les images orthogonales sont obtenues par projection orthogonale de l'image 3D. La projection orthogonale se fait selon une direction de projection, sur un plan tel que le plan et la direction sont orthogonaux. Il n'y a donc pas de point de vue. Des caméras existent afin de récupérer directement ces images, à l’opposition des caméras classiques qui capturent la projection en perspective de l'objet, de la même manière que l’œil humain. Ces images peuvent ensuite être utilisées pour réaliser la classification.
 
