@@ -206,3 +206,14 @@
 				\end{center}
 
 				Ces résultats sont vraiment bons.
+
+
+	\subsection{Commentaire des résultats}
+		RAJOUTER UNE CONLUSION SUR LES 2 CLASSES ?
+
+		Nous avons pu voir que, si la classification non-supervisée donne des résultats convenables sur deux classes, les résultats deviennent vraiment faibles pour la classification multi-classe.
+
+		Les SVM obtiennent de bons résultats. Lorsque les données ne sont pas rééquilibrées il y a des erreurs importantes sur les classes les moins représentées (bicyclist et pedestrian). Les méthodes que nous avons vues ne permettent pas de classifier convenablement ces classes en gardant les données telles quelles. Ces erreurs disparaissent cependant lorsque nous diminuons le nombre d'observations pour la classe background. Les erreurs des autres classes diminuent considérablement sans que cela ait de conséquences sur la classification de la classe background, ce qui entraîne une diminution significative de l'erreur. Les résultats obtenus, avec des erreurs inférieures à 0.2 \% ou nulles, sont remarquables.
+
+		Ces résultats sont toute fois à nuancer puisque des tirages aléatoires sont réalisés pour rééquilibrer la classe background et pour construire les ensemble d'apprentissage, de validation et de test. Des tirages différents pourraient donc amener à des résultats légèrement différents. Il pourrait être intéressant d'exécuter les algorithmes plusieurs fois avec des tirages différents afin de calculer les différentes erreurs et d'en faire la moyenne. Cela serait cependant coûteux en temps, à raison d'une heure par exécution.
+
