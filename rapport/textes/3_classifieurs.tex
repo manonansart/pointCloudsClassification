@@ -66,35 +66,36 @@
 			On constate que les erreurs sont plutôt bien réparties, c'est-à-dire qu'il n'y a pas plus d'erreur pour une classe que pour une autre, ce qui était un risque étant donné que nos classes n'ont pas le même effectif.
 
 		\subsubsection{SVM linéaire}
-			Nous avons créé un SVM linéaire en effectuant de la validation croisée pour le paramètre C. Nous avons pour cela utilisé la fonction monqp de la toolbox SVM-KM. En l’exécutant sur la totalité des données nous obtenons un taux d'erreur de A changer !!!\%. Notre matrice de confusion est la suivante :
+			Nous avons créé un SVM linéaire en effectuant de la validation croisée pour le paramètre C. Nous avons pour cela utilisé la fonction monqp de la toolbox SVM-KM. En l’exécutant sur un petit jeu de données (1817 observations) nous obtenons un taux d'erreur de 1,82\%. Executer ce SVM sur la totalité des données est très long et l'utiliser déjà sur un petit jeu de données nous donne une idée de l'erreur, en sachant pertinamment que le SVM gaussien serait meilleur. Notre matrice de confusion est la suivante :
 			\begin{center}
 				\begin{tabular}{|l||c|c|}
 				  \hline
 				  \backslashbox{Vérité}{Prédiction}& background & car \\
 				  \hline
-				  background & A changer !!! & A changer !!! \\
+				  background & 531 & 8 \\
 				  \hline
-				  car & A changer !!! & A changer !!! \\
+				  car & 3 & 62 \\
 				  \hline
 				\end{tabular}
 			\end{center}
 
-			COMMENTAIRE !
+			Le résultat obtenu est bon, la classe car est prédite même en étant largement sous-représentée par rapport à la classe background.
+
 		\subsubsection{SVM gaussien}
-			Nous avons créé un SVM gaussien en effectuant de la validation croisée pour le paramètre C et le paramètre sigma. Pour le paramètre C nous avons choisi d'utiliser une valeur différente pour les deux classes. Nous avons donc effectué la validation séparément pour ces deux valeurs de C. En l’exécutant sur la totalité des données nous obtenons un taux d'erreur de A changer !!!\%. Notre matrice de confusion est la suivante :
+			Nous avons créé un SVM gaussien en effectuant de la validation croisée pour le paramètre C et le paramètre sigma. Pour le paramètre C nous avons choisi d'utiliser une valeur différente pour les deux classes. Nous avons donc effectué la validation séparément pour ces deux valeurs de C. En l’exécutant sur la totalité des données nous obtenons un taux d'erreur de 0\%. Notre matrice de confusion est la suivante :
 			\begin{center}
 				\begin{tabular}{|l||c|c|}
 				  \hline
 				  \backslashbox{Vérité}{Prédiction}& background & car \\
 				  \hline
-				  background & A changer !!! & A changer !!! \\
+				  background & 8815 & 0 \\
 				  \hline
-				  car & A changer !!! & A changer !!! \\
+				  car & 0 & 1163 \\
 				  \hline
 				\end{tabular}
 			\end{center}
 
-			COMMENTAIRE !
+			Le résultat obtenu est donc excellent puisqu'il n'y a aucune erreur de classification. Le SVM gaussien est plus efficace que le noyau linéaire dans ce cas à deux classes.
 
 	\subsection{Classification sur quatre classes (lomita)}
 
@@ -164,6 +165,8 @@
 				\end{center}
 			\vspace{10 mm}
 
+			Dans ce cas à 4 classes, le svm one versus one donne des résultats excellents même en étant linéaire.
+
 		\subsubsection{SVM one-versus-all}
 			Nous avons mis en place un SVM one versus all en utilisant les fonction svmclass et svmval, permettant respectivement d’entraîner les SVMs et d'obtenir des prédictions. Grâce à ces fonctions nous avons créé des SVM comparant chaque classe aux autres, puis la classe des nouvelles données étaient prédites grâce à un vote à la majorité. Nous n'avons pas ajouté de validation croisée sur ce SVM car cela était trop coûteux en temps. Nous avons utilisé des SVM avec noyau gaussien.
 
@@ -205,15 +208,13 @@
 					\end{tabular}
 				\end{center}
 
-				Ces résultats sont vraiment bons.
+				Ces résultats sont vraiment bons, et même les classes bicyclist et pedestrian sous-representées sont prédites.
 
 
 	\subsection{Commentaire des résultats}
-		RAJOUTER UNE CONLUSION SUR LES 2 CLASSES ?
-
 		Nous avons pu voir que, si la classification non-supervisée donne des résultats convenables sur deux classes, les résultats deviennent vraiment faibles pour la classification multi-classe.
 
-		Les SVM obtiennent de bons résultats. Lorsque les données ne sont pas rééquilibrées il y a des erreurs importantes sur les classes les moins représentées (bicyclist et pedestrian). Les méthodes que nous avons vues ne permettent pas de classifier convenablement ces classes en gardant les données telles quelles. Ces erreurs disparaissent cependant lorsque nous diminuons le nombre d'observations pour la classe background. Les erreurs des autres classes diminuent considérablement sans que cela ait de conséquences sur la classification de la classe background, ce qui entraîne une diminution significative de l'erreur. Les résultats obtenus, avec des erreurs inférieures à 0.2 \% ou nulles, sont remarquables.
+		Les SVM obtiennent de très bons résultats. Lorsque les données ne sont pas rééquilibrées il y a des erreurs importantes sur les classes les moins représentées (bicyclist et pedestrian). Les méthodes que nous avons vues ne permettent pas de classifier convenablement ces classes en gardant les données telles quelles. Ces erreurs disparaissent cependant lorsque nous diminuons le nombre d'observations pour la classe background. Les erreurs des autres classes diminuent considérablement sans que cela ait de conséquences sur la classification de la classe background, ce qui entraîne une diminution significative de l'erreur. Les résultats obtenus, avec des erreurs inférieures à 0.2 \% ou nulles, sont remarquables.
 
 		Ces résultats sont toute fois à nuancer puisque des tirages aléatoires sont réalisés pour rééquilibrer la classe background et pour construire les ensemble d'apprentissage, de validation et de test. Des tirages différents pourraient donc amener à des résultats légèrement différents. Il pourrait être intéressant d'exécuter les algorithmes plusieurs fois avec des tirages différents afin de calculer les différentes erreurs et d'en faire la moyenne. Cela serait cependant coûteux en temps, à raison d'une heure par exécution.
 
