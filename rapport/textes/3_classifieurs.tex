@@ -10,7 +10,7 @@
 	Nous avons ensuite utilisé deux méthodes permettant de faire de la classification avec plus de deux classes :
 
 	\begin{itemize}
-	\item La méthode \emph{one-versus-all} consiste à construire M classifieurs binaires en attribuant le label 1 aux échantillons de l'une des classes et le label -1 à toutes les autres. En phase de test, la classe est determinée grâce à un vote à la majorité entre les différents SVM.
+	\item La méthode \emph{one-versus-all} consiste à construire M classifieurs binaires en attribuant le label 1 aux échantillons de l'une des classes et le label -1 à toutes les autres. En phase de test, la classe est déterminée grâce à un vote à la majorité entre les différents SVM.
 	\item La méthode \emph{one-versus-one} consiste à construire $\frac{M(M-1)}{2}$ classifieurs binaires en confrontant chacune des $M$ classes. En phase de test, l'échantillon à classer est analysé par chaque classifieur et un vote majoritaire permet de déterminer sa classe.\\
 	\end{itemize}
 
@@ -41,7 +41,7 @@
 
 	La classe unlabeled n'est pas une classe en soit, elle regroupe les imagettes n'ayant pas pu être classées dans une des 4 autres classes. Ces données ont donc été supprimées du jeu de données car elles auraient pu fausser l'apprentissage. \\
 
-	Nous avons également ré-équilibré les classes en utilisant seulement une partie de la classe background afin que la différence d'effectif entre cette classe et les autres ne soit pas trop importante. Nous avons donc pris aléatoirement 7000 données de la classe background sur les 60103 présente à l'origine, ce qui correspond à une sélection de 11,65\%. Ce changement a nettement amélioré nos résultats. Nos machines n'étant pas assez puissantes, nous n'avons pas pu faire tourner nos propres algorithmes sur la totalité des données sans retirer des données de la classe background. Nous les avons cependant exécutés sur une partie des données (1722 observations) non ré-équilibrées et avons conservé ces résultats à titre de comparaison. \\
+	Nous avons également ré-équilibré les classes en utilisant seulement une partie de la classe background afin que la différence d'effectif entre cette classe et les autres ne soit pas trop importante. Nous avons donc pris aléatoirement 7000 données de la classe background sur les 60103 présente à l'origine, ce qui correspond à une sélection de 11,65 \%. Ce changement a nettement amélioré nos résultats. Nos machines n'étant pas assez puissantes, nous n'avons pas pu faire tourner nos propres algorithmes sur la totalité des données sans retirer des données de la classe background. Nous les avons cependant exécutés sur une partie des données (1722 observations) non ré-équilibrées et avons conservé ces résultats à titre de comparaison. \\
 
 
 \section{Résultats obtenus}
@@ -49,7 +49,7 @@
 
 	\subsection{Classification sur deux classes (dish area)}
 		\subsubsection{K-moyennes}
-			Nous avons utilisé l'algorithme kmeans de matlab pour former des clusters et les comparer avec les classes connues. Nous obtenons un taux d'erreur de 8.71\%, ce qui est un bon résultat pour un algorithme non-supervisé. Notre matrice de confusion est la suivante :
+			Nous avons utilisé l'algorithme kmeans de matlab pour former des clusters et les comparer avec les classes connues. Nous obtenons un taux d'erreur de 8.71 \%, ce qui est un bon résultat pour un algorithme non-supervisé. Notre matrice de confusion est la suivante :
 
 			\begin{center}
 				\begin{tabular}{|l||c|c|}
@@ -66,7 +66,7 @@
 			On constate que les erreurs sont plutôt bien réparties, c'est-à-dire qu'il n'y a pas plus d'erreur pour une classe que pour une autre, ce qui était un risque étant donné que nos classes n'ont pas le même effectif.
 
 		\subsubsection{SVM linéaire}
-			Nous avons créé un SVM linéaire en effectuant de la validation croisée pour le paramètre C. Nous avons pour cela utilisé la fonction monqp de la toolbox SVM-KM. En l’exécutant sur un petit jeu de données (1817 observations) nous obtenons un taux d'erreur de 1,82\%. Executer ce SVM sur la totalité des données est très long et l'utiliser déjà sur un petit jeu de données nous donne une idée de l'erreur, en sachant pertinamment que le SVM gaussien serait meilleur. Notre matrice de confusion est la suivante :
+			Nous avons créé un SVM linéaire en effectuant de la validation croisée pour le paramètre C. Nous avons pour cela utilisé la fonction monqp de la toolbox SVM-KM. En l’exécutant sur un petit jeu de données (1817 observations) nous obtenons un taux d'erreur de 1,82 \%. Exécuter ce SVM sur la totalité des données est très long et l'utiliser déjà sur un petit jeu de données nous donne une idée de l'erreur, en sachant pertinemment que le SVM gaussien serait meilleur. Notre matrice de confusion est la suivante :
 			\begin{center}
 				\begin{tabular}{|l||c|c|}
 				  \hline
@@ -82,7 +82,7 @@
 			Le résultat obtenu est bon, la classe car est prédite même en étant largement sous-représentée par rapport à la classe background.
 
 		\subsubsection{SVM gaussien}
-			Nous avons créé un SVM gaussien en effectuant de la validation croisée pour le paramètre C et le paramètre sigma. Pour le paramètre C nous avons choisi d'utiliser une valeur différente pour les deux classes. Nous avons donc effectué la validation séparément pour ces deux valeurs de C. En l’exécutant sur la totalité des données nous obtenons un taux d'erreur de 0\%. Notre matrice de confusion est la suivante :
+			Nous avons créé un SVM gaussien en effectuant de la validation croisée pour le paramètre C et le paramètre sigma. Pour le paramètre C nous avons choisi d'utiliser une valeur différente pour les deux classes. Nous avons donc effectué la validation séparément pour ces deux valeurs de C. En l’exécutant sur la totalité des données nous obtenons un taux d'erreur de 0 \%. Notre matrice de confusion est la suivante :
 			\begin{center}
 				\begin{tabular}{|l||c|c|}
 				  \hline
@@ -100,7 +100,7 @@
 	\subsection{Classification sur quatre classes (lomita)}
 
 		\subsubsection{K-moyennes}
-			Nous avons utilisé l'algorithme kmeans de matlab pour former des clusters et les comparer avec les classes connues. Cet algorithme étant très optimisé, c'est le seul que nous avons pu exécuter sur la totalité de nos données. Nous obtenons un taux d'erreur de 23.9\%. Ce taux est très élevé. En effet, la classe background étant sur-représentée, un algorithme prédisant tout le temps la classe background aurait de meilleures performances (12.7 \%).
+			Nous avons utilisé l'algorithme kmeans de matlab pour former des clusters et les comparer avec les classes connues. Cet algorithme étant très optimisé, c'est le seul que nous avons pu exécuter sur la totalité de nos données. Nous obtenons un taux d'erreur de 23.9 \%. Ce taux est très élevé. En effet, la classe background étant sur-représentée, un algorithme prédisant tout le temps la classe background aurait de meilleures performances (12.7 \%).
 
 			\begin{center}
 				\begin{tabular}{|l||c|c|c|c|}
@@ -123,7 +123,7 @@
 		\subsubsection{SVM one-versus-one}
 
 			Nous avons mis en place notre propre SVM One versus one. Cette méthode met en place plusieurs SVM comparant les classes une à une, puis un vote à la majorité nous permet de prédire la classe pour une nouvelle donnée. Cette méthode étant coûteuse en temps, nous avons choisi d'utiliser uniquement des SVMs linéaire. Nous avons retenu une version qui effectue la validation croisée du C sur l'ensemble du SVM multi-classe, le même C est donc retenu pour tous les SVM. Nous avons également créé une autre version, pour laquelle la validation croisée est effectuée sur chaque SVM individuellement, qui obtient un taux d'erreur légèrement meilleur mais pour un temps de calcul plus long. Cette version n'est pas la version retenue à cause des temps de calcul, elle ne sera donc pas commentée ici mais elle est disponible dans le dossier.
-			
+
 			\paragraph{Données non rééquilibrées :}
 				Nous obtenons 4.4 \% d'erreurs sur le petit jeu de données. Notre matrice de confusion est la suivante :
 
@@ -165,7 +165,7 @@
 				\end{center}
 			\vspace{10 mm}
 
-			Dans ce cas à 4 classes, le svm one versus one donne des résultats excellents même en étant linéaire.
+			Dans ce cas à 4 classes, le SVM one versus one donne des résultats excellents même en étant linéaire.
 
 		\subsubsection{SVM one-versus-all}
 			Nous avons mis en place un SVM one versus all en utilisant les fonction svmclass et svmval, permettant respectivement d’entraîner les SVMs et d'obtenir des prédictions. Grâce à ces fonctions nous avons créé des SVM comparant chaque classe aux autres, puis la classe des nouvelles données étaient prédites grâce à un vote à la majorité. Nous n'avons pas ajouté de validation croisée sur ce SVM car cela était trop coûteux en temps. Nous avons utilisé des SVM avec noyau gaussien.
