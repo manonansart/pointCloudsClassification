@@ -163,9 +163,9 @@
 					  \hline
 					\end{tabular}
 				\end{center}
-			\vspace{10 mm}
 
 			Dans ce cas à 4 classes, le SVM one versus one donne des résultats excellents même en étant linéaire.
+			\vspace{5 mm}
 
 		\subsubsection{SVM one-versus-all}
 			Nous avons mis en place un SVM one versus all en utilisant les fonction svmclass et svmval, permettant respectivement d’entraîner les SVMs et d'obtenir des prédictions. Grâce à ces fonctions nous avons créé des SVM comparant chaque classe aux autres, puis la classe des nouvelles données étaient prédites grâce à un vote à la majorité. Nous n'avons pas ajouté de validation croisée sur ce SVM car cela était trop coûteux en temps. Nous avons utilisé des SVM avec noyau gaussien.
