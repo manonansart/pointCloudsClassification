@@ -2,7 +2,7 @@
 
 	Il nous était possible d'utiliser deux sortes d'apprentissage sur nos données. L'apprentissage non-supervisé apprend uniquement à partir des attributs, sans tenir compte des labels. Cela permet par exemple de faire du clustering pour regrouper les données en différentes classes. Nous avons appliqué cette méthode d'apprentissage en utilisant l'algorithme des k-moyennes sur nos données.\\
 
-	L'apprentissage supervisé apprend en se basant sur les attributs mais en utilisant également les labels que nous connaissons. Cette technique d'apprentissage paraît donc plus adaptée dans notre cas. Différentes méthodes existent, nous avons choisis de nous concentrer sur les SVM (\emph{Support Vector Machines} ou séparateurs à vaste marge) pour réaliser notre classification en apprentissage supervisé. Ils sont souvent utilisés pour résoudre des problèmes de discrimination, c'est-à-dire savoir à quelle classe appartient un échantillon, et c'est exactement le problème auquel nous sommes confrontés. Le SVM va chercher à tracer une limite entre les classes des données d'apprentissage en maximisant la marge entre cette limite et chaque classe. Les classes de nouvelles données seront ensuite attribuées selon le côté du quel se trouvent les nouvelles données. La limite entre les classes peut-être en ligne droite, dans le cas d'un SVM linéaire, ou plus compliquée dans le cas d'un SVM avec noyau.\\
+	L'apprentissage supervisé apprend en se basant sur les attributs mais en utilisant également les labels que nous connaissons. Cette technique d'apprentissage paraît donc plus adaptée dans notre cas. Différentes méthodes existent, nous avons choisi de nous concentrer sur les SVM (\emph{Support Vector Machines} ou Séparateurs à Vaste Marge) pour réaliser notre classification en apprentissage supervisé. Ils sont souvent utilisés pour résoudre des problèmes de discrimination, c'est-à-dire savoir à quelle classe appartient un échantillon, et c'est exactement le problème auquel nous sommes confrontés. Le SVM va chercher à tracer une limite entre les classes des données d'apprentissage en maximisant la marge entre cette limite et chaque classe. Les classes de nouvelles données seront ensuite attribuées selon le côté duquel se trouvent les nouvelles données. La limite entre les classes peut-être une ligne droite, dans le cas d'un SVM linéaire, ou plus compliquée dans le cas d'un SVM avec noyau.\\
 
 	Dans un premier temps nous avons travaillé sur deux classes, ce qui est le problème le plus simple à résoudre avec des SVM. Nous avons pour cela réalisé deux SVM, un SVM linéaire et un SVM gaussien. Nous avons effectué de la validation croisée afin d'identifier les hyper-paramètres (C pour le SVM linéaire, et C et sigma pour le SVM gaussien).
 
@@ -10,7 +10,7 @@
 	Nous avons ensuite utilisé deux méthodes permettant de faire de la classification avec plus de deux classes :
 
 	\begin{itemize}
-	\item La méthode \emph{one-versus-all} consiste à construire M classifieurs binaires en attribuant le label 1 aux échantillons de l'une des classes et le label -1 à toutes les autres. En phase de test, la classe est determinées grâce à un vote à la majorité entre les différents SVM.
+	\item La méthode \emph{one-versus-all} consiste à construire M classifieurs binaires en attribuant le label 1 aux échantillons de l'une des classes et le label -1 à toutes les autres. En phase de test, la classe est determinée grâce à un vote à la majorité entre les différents SVM.
 	\item La méthode \emph{one-versus-one} consiste à construire $\frac{M(M-1)}{2}$ classifieurs binaires en confrontant chacune des $M$ classes. En phase de test, l'échantillon à classer est analysé par chaque classifieur et un vote majoritaire permet de déterminer sa classe.\\
 	\end{itemize}
 
@@ -63,7 +63,7 @@
 				\end{tabular}
 			\end{center}
 
-			On constate que les erreurs sont plutôt bien réparties, c'est-à-dire qu'il n'y a pas plus d'erreur pour une classe pour une autre, ce qui était un risque étant donné que nos classes n'ont pas le même effectif.
+			On constate que les erreurs sont plutôt bien réparties, c'est-à-dire qu'il n'y a pas plus d'erreur pour une classe que pour une autre, ce qui était un risque étant donné que nos classes n'ont pas le même effectif.
 
 		\subsubsection{SVM linéaire}
 			Nous avons créé un SVM linéaire en effectuant de la validation croisée pour le paramètre C. Nous avons pour cela utilisé la fonction monqp de la toolbox SVM-KM. En l’exécutant sur la totalité des données nous obtenons un taux d'erreur de A changer !!!\%. Notre matrice de confusion est la suivante :
@@ -81,7 +81,7 @@
 
 			COMMENTAIRE !
 		\subsubsection{SVM gaussien}
-			Nous avons créé un SVM gaussien en effectuant de la validation croisée pour le paramètre C et le paramètre sigma. Pour le paramètre C nous avons choisi d'utiliser une valeur différente pour les deux classes. Nous avons donc effectuer la validation séparément pour ces deux valeurs de C. En l’exécutant sur la totalité des données nous obtenons un taux d'erreur de A changer !!!\%. Notre matrice de confusion est la suivante :
+			Nous avons créé un SVM gaussien en effectuant de la validation croisée pour le paramètre C et le paramètre sigma. Pour le paramètre C nous avons choisi d'utiliser une valeur différente pour les deux classes. Nous avons donc effectué la validation séparément pour ces deux valeurs de C. En l’exécutant sur la totalité des données nous obtenons un taux d'erreur de A changer !!!\%. Notre matrice de confusion est la suivante :
 			\begin{center}
 				\begin{tabular}{|l||c|c|}
 				  \hline
@@ -145,7 +145,7 @@
 				On remarque que, même si notre taux d'erreur est bon, les erreurs ne sont pas bien réparties entre les classes. Notre SVM ne prédit jamais la bonne classe pour les imagettes de classe pedestrian et les résultats sont également faibles pour la classe bicyclist.
 
 			\paragraph{Données rééquilibrées :}
-				Nous obtenons 0 \% d'erreurs sur le jeu de données rééquilibré, ce qui est très surprenant. Notre matrice de confusion est la suivante :
+				Nous obtenons 0 \% d'erreurs sur le grand jeu de données rééquilibré, ce qui est très surprenant. Notre matrice de confusion est la suivante :
 
 				\begin{center}
 					\begin{tabular}{|l||c|c|c|c|}
@@ -165,7 +165,7 @@
 			\vspace{10 mm}
 
 		\subsubsection{SVM one-versus-all}
-			Nous avons mis en place un SVM one versus all en utilisant les fonction svmclass et svmval, permettant respectivement d’entraîner les SVMs et d'obtenir des prédictions. Grâce à ces fonctions nous avons créé des SVMs comparant chaque classe aux autres, puis la classe des nouvelles données étaient prédites grâce à un vote à la majorité. Nous n'avons pas ajouté de validation croisée sur ce SVM car cela était trop coûteux en temps. Nous avons utilisé des SVM avec noyau gaussien.
+			Nous avons mis en place un SVM one versus all en utilisant les fonction svmclass et svmval, permettant respectivement d’entraîner les SVMs et d'obtenir des prédictions. Grâce à ces fonctions nous avons créé des SVM comparant chaque classe aux autres, puis la classe des nouvelles données étaient prédites grâce à un vote à la majorité. Nous n'avons pas ajouté de validation croisée sur ce SVM car cela était trop coûteux en temps. Nous avons utilisé des SVM avec noyau gaussien.
 
 			\paragraph{Données non rééquilibrées :}
 				Nous avons obtenu un taux d'erreurs de 4.65 \% sur le petit jeu de données. La matrice de confusion est la suivante :
@@ -187,8 +187,8 @@
 
 				On remarque que les résultats sont plutôt bons pour les classes background et car mais moins pour les deux autres, qui sont moins représentées.
 
-			\paragraph{Données non rééquilibrées :}
-				Nous avons obtenu un taux d'erreurs de 0.175 \%. La matrice de confusion est la suivante :
+			\paragraph{Données rééquilibrées :}
+				Nous avons obtenu un taux d'erreurs de 0.175 \% sur le grand jeu de données. La matrice de confusion est la suivante :
 				\begin{center}
 					\begin{tabular}{|l||c|c|c|c|}
 					  \hline
