@@ -13,8 +13,8 @@ clc
 
 
 %% Load and split the data
-data = load('../../../dataset/lomita/attributes_without_unlabeled_and_reduced_background');
-Y = load('../../../dataset/lomita/labels_without_unlabeled_and_reduced_background.csv');
+data = load('../../../dataset/lomita_attributes/attributes_without_unlabeled_and_reduced_background');
+Y = load('../../../dataset/lomita_attributes/labels_without_unlabeled_and_reduced_background.csv');
 
 
 %% Split the data into app, val and test
